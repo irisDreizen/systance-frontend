@@ -1,5 +1,8 @@
 import Vue from 'vue'
 import App from './App.vue'
+import routes from "./routes";
+import VueRouter from "vue-router";
+
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
 // Import Bootstrap an BootstrapVue CSS files (order is important)
@@ -15,6 +18,12 @@ Vue.config.productionTip = false
 Vue.use(VueMeta)
 Vue.use(VueApexCharts)
 
+Vue.use(VueRouter);
+const router = new VueRouter({
+  routes,
+});
+
 new Vue({
-  render: h => h(App),
-}).$mount('#app')
+  router,
+  render: (h) => h(App),
+}).$mount("#app");

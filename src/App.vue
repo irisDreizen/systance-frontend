@@ -1,12 +1,16 @@
 <template>
   <div id="app">
       <b-navbar toggleable="lg" type="dark" variant="info">
-          <b-navbar-brand href="#">Systance</b-navbar-brand>
+          <b-navbar-brand>
+            <router-link :to="{ name: 'main' }">Systance</router-link>
+          </b-navbar-brand>
           <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
           <b-collapse id="nav-collapse" is-nav>
               <b-navbar-nav>
                   <b-nav-item href="#">About</b-nav-item>
-                  <b-nav-item href="#">Playground</b-nav-item>
+                  <b-nav-item
+                    ><router-link :to="{ name: 'Statistics' }">Statistics</router-link>
+                  </b-nav-item>
                   <b-nav-item href="#">Compare Your Algorithm</b-nav-item>
               </b-navbar-nav>
 
@@ -16,9 +20,9 @@
               </b-navbar-nav>
           </b-collapse>
       </b-navbar>
+      <router-view />
 <!--    <img alt="Vue logo" src="./assets/logo.png">-->
 <!--    <HelloWorld msg="Welcome to Your Vue.js App"/>-->
-      <main-page></main-page>
       <footer>
           <div class="bg-secondary text-white py-4">
               <div class="container text-center text-white">
@@ -30,7 +34,6 @@
 </template>
 
 <script>
-import mainPage from "./pages/mainPage";
 
 export default {
   name: 'App',
@@ -43,9 +46,6 @@ export default {
           ]
       }
     },
-  components: {
-    mainPage
-  }
 }
 </script>
 
