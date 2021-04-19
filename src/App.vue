@@ -1,28 +1,68 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+      <b-navbar toggleable="lg" type="dark" variant="info">
+          <b-navbar-brand href="#">Systance</b-navbar-brand>
+          <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+          <b-collapse id="nav-collapse" is-nav>
+              <b-navbar-nav>
+                  <b-nav-item href="#">About</b-nav-item>
+                  <b-nav-item href="#">Playground</b-nav-item>
+                  <b-nav-item href="#">Compare Your Algorithm</b-nav-item>
+              </b-navbar-nav>
+
+              <!-- Right aligned nav items -->
+              <b-navbar-nav class="ml-auto">
+
+              </b-navbar-nav>
+          </b-collapse>
+      </b-navbar>
+<!--    <img alt="Vue logo" src="./assets/logo.png">-->
+<!--    <HelloWorld msg="Welcome to Your Vue.js App"/>-->
+      <main-page></main-page>
+      <footer>
+          <div class="bg-secondary text-white py-4">
+              <div class="container text-center text-white">
+                  <p class="text-white mb-0 py-2">© 2021 All rights reserved.</p>
+              </div>
+          </div>
+      </footer>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import mainPage from "./pages/mainPage";
 
 export default {
   name: 'App',
+    metaInfo(){
+      return {
+          meta:[
+              {
+                  name:"viewport"
+              }
+          ]
+      }
+    },
   components: {
-    HelloWorld
+    mainPage
   }
 }
 </script>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  /*font-family: Avenir, Helvetica, Arial, sans-serif;*/
+  /*-webkit-font-smoothing: antialiased;*/
+  /*-moz-osx-font-smoothing: grayscale;*/
+  /*text-align: center;*/
+  /*color: #2c3e50;*/
+  /*margin-top: 60px;*/
+}
+footer {
+    position:relative;
+    bottom:0;
+    width:100%;
+    height:60px;   /* Height of the footer */
+    /*background:#6cf;*/
 }
 </style>
