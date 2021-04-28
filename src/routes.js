@@ -11,6 +11,11 @@ const routes = [
         name: "Statistics",
         component: () => import("./pages/Statistics"),
     },
+    {
+        path: "/CheckYourStance",
+        name: "CheckYourStances",
+        component: () => import("./pages/checkYourStancePage"),
+    },
 ];
 
 export default routes;
