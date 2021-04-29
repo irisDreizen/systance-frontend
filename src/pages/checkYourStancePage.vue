@@ -13,7 +13,7 @@
                 </b-dropdown-item>
             </b-dropdown>
         </div>
-        <div>
+        <div class="centered_element">
             <b-form-input v-model="text" placeholder="Enter your stance"></b-form-input>
         </div>
         <b-button pill variant="info" size="md" style="margin-top: 20px">Check My Stance!</b-button>
@@ -57,6 +57,11 @@
     }
     .select_topic{
         margin: 30px;
+    }
+    .centered_element{
+        margin-left: 28%;
+        text-align: center;
+        width: 600px;
     }
 
 </style>

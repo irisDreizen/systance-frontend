@@ -13,7 +13,7 @@
             <h1 class="content_title">What Would You Like To Do?</h1>
             <div class="content_buttons">
                 <b-button pill variant="info" size="lg" style="margin-left: 20px; margin-bottom: 60px"><router-link :to="{ name: 'CheckYourStances' }">Check My Stance</router-link></b-button>
-                <b-button pill variant="info" size="lg" style="margin-left: 20px; margin-bottom: 60px">Compare Algorithms</b-button>
+                <b-button pill variant="info" size="lg" style="margin-left: 20px; margin-bottom: 60px"><router-link :to="{ name: 'chooseAlgorithmPage'}">Compare Algorithms</router-link></b-button>
             </div>
 
         </div>
