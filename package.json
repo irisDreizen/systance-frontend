@@ -12,9 +12,13 @@
     "bootstrap-vue": "^2.21.2",
     "core-js": "^3.6.5",
     "mdbvue": "^6.7.2",
+    "sass-loader": "^11.0.1",
     "vue": "^2.6.11",
     "vue-apexcharts": "^1.6.1",
-    "vue-meta": "^2.4.0"
+    "vue-easytable": "^2.5.1",
+    "vue-meta": "^2.4.0",
+    "vue-table-dynamic": "^0.4.4",
+    "vuetify": "^2.4.11"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
