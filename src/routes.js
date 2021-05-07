@@ -21,6 +21,16 @@ const routes = [
         name: "datasetInfo",
         component: () => import("./pages/datasetInfoPage"),
     },
+    {
+        path: "/CheckYourStance",
+        name: "CheckYourStances",
+        component: () => import("./pages/checkYourStancePage"),
+    },
+    {
+        path: "/chooseAlgorithmPage",
+        name: "chooseAlgorithmPage",
+        component: () => import("./pages/chooseAlgorithmPage"),
+    },
 ];
 
 export default routes;

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-      <b-navbar toggleable="lg" type="dark" variant="info">
+      <b-navbar toggleable="lg" type="dark" variant="info" class="header">
           <b-navbar-brand>
             <router-link :to="{ name: 'main' }">Systance</router-link>
           </b-navbar-brand>
@@ -27,13 +27,13 @@
       <router-view />
 <!--    <img alt="Vue logo" src="./assets/logo.png">-->
 <!--    <HelloWorld msg="Welcome to Your Vue.js App"/>-->
-      <footer>
-          <div class="bg-secondary text-white py-4">
-              <div class="container text-center text-white">
-                  <p class="text-white mb-0 py-2">© 2021 All rights reserved.</p>
-              </div>
-          </div>
-      </footer>
+<!--      <footer>-->
+<!--          <div class="bg-secondary text-white py-4">-->
+<!--              <div class="container text-center text-white">-->
+<!--                  <p class="text-white mb-0 py-2">© 2021 All rights reserved.</p>-->
+<!--              </div>-->
+<!--          </div>-->
+<!--      </footer>-->
   </div>
 </template>
 
@@ -63,10 +63,13 @@ export default {
   /*margin-top: 60px;*/
 }
 footer {
-    position:relative;
+    position:fixed;
     bottom:0;
     width:100%;
     height:60px;   /* Height of the footer */
     /*background:#6cf;*/
+},
+.header{
+    position: fixed
 }
 </style>
