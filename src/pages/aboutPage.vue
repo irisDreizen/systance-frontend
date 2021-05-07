@@ -1,7 +1,14 @@
 <template>
   <div>
-    <h3>About Us: Iris, Chen, Adi and Gal</h3>
-    <resultsPreview></resultsPreview>
+    <h2>Results</h2>
+    <h3>Dataset: {{datasetName}}</h3>
+    <h3>Train Percent: {{trainPercent}}</h3>
+    <h4>Choose which algorithm you would like to view the results:</h4>
+    <div v-for="r in results" :key="r.id">
+      <resultsPreview :results="r" />
+      <br />
+    </div>
+
   </div>
 </template>
 
@@ -12,6 +19,13 @@ export default {
   name: "about",
   components:{
     resultsPreview
+  },
+  data: function() {
+    return {
+      datasetName: 'MPCHI',
+      trainPercent: 70,
+      results:[1, 2, 3]
+    }
   }
 }
 </script>

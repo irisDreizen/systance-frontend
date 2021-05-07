@@ -21,11 +21,11 @@
       <div>
         <b-card-group deck>
           <b-card border-variant="info" bg-variant="Light" text-variant="black" header="Statistics" class="text-center">
-            <StatisticsTable></StatisticsTable>
+            <StatisticsTable :algoName="algoName" :datasetName="datasetName" :train="train"></StatisticsTable>
           </b-card>
 
           <b-card border-variant="info" bg-variant="Light" text-variant="black" header="Confusion Matrix" class="text-center">
-            <ConfusionMatrix></ConfusionMatrix>
+            <ConfusionMatrix :algoName="algoName" :datasetName="datasetName" :train="train"></ConfusionMatrix>
           </b-card>
 
         </b-card-group>
@@ -34,11 +34,11 @@
       <div>
         <b-card-group deck>
           <b-card border-variant="info" bg-variant="Light" text-variant="black" header="ROC Curve" class="text-center">
-            <ROCCurve></ROCCurve>
+            <ROCCurve :algoName="algoName" :datasetName="datasetName" :train="train"></ROCCurve>
           </b-card>
 
           <b-card border-variant="info" bg-variant="Light" text-variant="black" header="Actual vs Predict" class="text-center">
-            <actual-vs-predict></actual-vs-predict>
+            <actual-vs-predict :algoName="algoName" :datasetName="datasetName" :train="train"></actual-vs-predict>
           </b-card>
 
         </b-card-group>
@@ -71,7 +71,8 @@
         accuracy: 0.7,
         rocaucscore: 0.68,
         datasetName: 'MPCHI',
-        algoName: 'UCLMR'
+        algoName: 'UCLMR',
+        train: '0.8'
       }
     }
   }

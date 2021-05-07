@@ -14,11 +14,23 @@ export default {
   components: {
     apexchart: VueApexCharts,
   },
+  props: {
+    algoName: {
+      type: String,
+      required: true
+    },
+    datasetName: {
+      type: String,
+      required: true
+    },
+    train: {
+      type: String,
+      required: true
+    },
+  },
   data: function () {
     return {
-      series: [{
-        data: [44, 55, 41, 17, 15]
-      }, ],
+      series: [],
       chartOptions: {
         chart: {
           type: 'bar',
@@ -50,9 +62,39 @@ export default {
           intersect: false
         },
         xaxis: {
-          categories: ['Atheism', 'Abortion', 'Guns', 'Trump', 'Hilary Clinton'],
+          categories: [],
         },
       },
+    }
+  },
+  mounted(){
+    this.update();
+  },
+  methods: {
+    async update(){
+      try{
+        // const response = await this.axios.get(
+        //     "http://localhost:3000/results/topicsChart",
+        //     {
+        //       params: {
+        //         algoName: this.algoName,
+        //         datasetName: this.datasetName,
+        //         train: this.train
+        //       },
+        //     }
+        // );
+        // this.params.data = response.data;
+        this.series = [{
+          data: [44, 55, 41, 17, 15]
+        }, ];
+        this.chartOptions.xaxis.categories.push('Atheism', 'Abortion', 'Guns', 'Trump', 'Hilary Clinton');
+
+
+
+
+      } catch (error) {
+        console.log(error);
+      }
     }
   }
 }

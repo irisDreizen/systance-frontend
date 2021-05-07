@@ -14,14 +14,28 @@ export default {
   components: {
     apexchart: VueApexCharts,
   },
+  props: {
+    algoName: {
+      type: String,
+      required: true
+    },
+    datasetName: {
+      type: String,
+      required: true
+    },
+    train: {
+      type: String,
+      required: true
+    },
+  },
   data: function () {
     return {
-      series: [62, 38],
+      series: [],
       chartOptions: {
         chart: {
           type: 'donut',
         },
-        labels: ['Positive', 'Negative'],
+        labels: ['Positive', 'Negative', 'Neutral'],
         plotOptions: {
           pie: {
             startAngle: -90,
@@ -45,6 +59,30 @@ export default {
             }
           }
         }]
+      }
+    }
+  },
+  mounted(){
+    this.update();
+  },
+  methods: {
+    async update(){
+      try{
+        // const response = await this.axios.get(
+        //     "http://localhost:3000/results/trainTest",
+        //     {
+        //       params: {
+        //         algoName: this.algoName,
+        //         datasetName: this.datasetName,
+        //         train: this.train
+        //       },
+        //     }
+        // );
+        // this.params.data = response.data;
+        this.series.push(63, 38, 12);
+
+      } catch (error) {
+        console.log(error);
       }
     }
   }

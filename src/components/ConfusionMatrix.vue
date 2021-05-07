@@ -9,18 +9,26 @@
 
   export default {
     name: 'ConfusionMatrix',
+    components: { VueTableDynamic },
+    props: {
+      algoName: {
+        type: String,
+        required: true
+      },
+      datasetName: {
+        type: String,
+        required: true
+      },
+      train: {
+        type: String,
+        required: true
+      },
+    },
 
     data() {
       return {
         params: {
-          data: [
-            ['TRUE LABEL', '', '', ''],
-            ['AGAINST', '115', '18', '33'],
-            ['FAVOR', '12', '357', '104'],
-            ['NONE', '27', '85', '287'],
-            ['PREDICTED LABEL', 'AGAINST', 'FAVOR', 'NONE'],
-
-          ],
+          data: null,
           border: true,
           stripe: false,
           highlight: { row: [0, -1], column: [0] },
@@ -28,6 +36,36 @@
         }
       }
     },
-    components: { VueTableDynamic }
+    mounted(){
+      this.update();
+    },
+    methods: {
+      async update(){
+        try{
+          // const response = await this.axios.get(
+          //     "http://localhost:3000/results/confusionMatrix",
+          //     {
+          //       params: {
+          //         algoName: this.algoName,
+          //         datasetName: this.datasetName,
+          //         train: this.train
+          //       },
+          //     }
+          // );
+          // this.params.data = response.data;
+          this.params.data = [
+            ['TRUE LABEL', '', '', ''],
+            ['AGAINST', '115', '18', '33'],
+            ['FAVOR', '12', '357', '104'],
+            ['NONE', '27', '85', '287'],
+            ['PREDICTED LABEL', 'AGAINST', 'FAVOR', 'NONE'],
+
+          ];
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    }
+
 }
 </script>

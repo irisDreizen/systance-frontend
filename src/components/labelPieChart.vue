@@ -14,15 +14,29 @@ export default {
   components: {
     apexchart: VueApexCharts,
   },
+  props: {
+    algoName: {
+      type: String,
+      required: true
+    },
+    datasetName: {
+      type: String,
+      required: true
+    },
+    train: {
+      type: String,
+      required: true
+    },
+  },
   data: function () {
     return {
-      series: [989, 349, 290],
+      series: [],
       chartOptions: {
         chart: {
           width: 380,
           type: 'pie',
         },
-        labels: ['Against (989)', 'Favor (349)', 'None (290)'],
+        labels: [],
         responsive: [{
           breakpoint: 480,
           options: {
@@ -34,6 +48,35 @@ export default {
             }
           }
         }]
+      }
+    }
+  },
+  mounted(){
+    this.update();
+  },
+  methods: {
+    async update(){
+      try{
+        // const response = await this.axios.get(
+        //     "http://localhost:3000/results/labelPieChart",
+        //     {
+        //       params: {
+        //         algoName: this.algoName,
+        //         datasetName: this.datasetName,
+        //         train: this.train
+        //       },
+        //     }
+        // );
+        // this.params.data = response.data;
+        this.series.push(989, 349, 290);
+
+        this.chartOptions.labels.push('Against (989)', 'Favor (349)', 'None (290)');
+
+
+
+
+      } catch (error) {
+        console.log(error);
       }
     }
   }

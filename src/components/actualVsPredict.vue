@@ -14,15 +14,23 @@ export default {
   components: {
     apexchart: VueApexCharts,
   },
+  props: {
+    algoName: {
+      type: String,
+      required: true
+    },
+    datasetName: {
+      type: String,
+      required: true
+    },
+    train: {
+      type: String,
+      required: true
+    },
+  },
   data: function () {
     return {
-      series: [{
-        name: "Actual",
-        data: [1002, 280, 346]
-      }, {
-        name: "Predict",
-        data: [989, 349, 290]
-      }],
+      series: [],
       chartOptions: {
         chart: {
           type: 'bar',
@@ -54,9 +62,44 @@ export default {
           intersect: false
         },
         xaxis: {
-          categories: ['Against', 'For', 'Observing'],
+          categories: []
         },
       },
+    }
+  },
+  mounted(){
+    this.update();
+  },
+  methods: {
+    async update(){
+      try{
+        // const response = await this.axios.get(
+        //     "http://localhost:3000/results/actualVsPredict",
+        //     {
+        //       params: {
+        //         algoName: this.algoName,
+        //         datasetName: this.datasetName,
+        //         train: this.train
+        //       },
+        //     }
+        // );
+        // this.params.data = response.data;
+
+
+        this.series = [{
+          name: "Actual",
+          data: [1002, 280, 346]
+        }, {
+          name: "Predict",
+          data: [989, 349, 290]
+        }];
+
+        this.chartOptions.xaxis.categories.push('Against', 'For', 'Observing');
+
+
+      } catch (error) {
+        console.log(error);
+      }
     }
   }
 }

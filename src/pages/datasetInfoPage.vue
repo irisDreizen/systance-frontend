@@ -21,7 +21,7 @@
   <div>
     <b-card-group deck>
       <b-card border-variant="info" bg-variant="Light" text-variant="black" header="Data Sample (first 5 rows)" class="text-center">
-        <data-sample-table></data-sample-table>
+        <data-sample-table :algoName="algoName" :datasetName="datasetName" :train="train"></data-sample-table>
       </b-card>
     </b-card-group>
   </div>
@@ -29,11 +29,11 @@
   <div>
     <b-card-group deck>
       <b-card border-variant="info" bg-variant="Light" text-variant="black" header="Label Distribution" class="text-center">
-        <labelPieChart></labelPieChart>
+        <labelPieChart :algoName="algoName" :datasetName="datasetName" :train="train"></labelPieChart>
       </b-card>
 
       <b-card border-variant="info" bg-variant="Light" text-variant="black" header="Topic Distribution" class="text-center">
-        <topics-chart></topics-chart>
+        <topics-chart :algoName="algoName" :datasetName="datasetName" :train="train"></topics-chart>
       </b-card>
 
     </b-card-group>
@@ -42,11 +42,11 @@
   <div>
     <b-card-group deck>
       <b-card border-variant="info" bg-variant="Light" text-variant="black" header="Train vs Test" class="text-center">
-        <train-test-donut-chart></train-test-donut-chart>
+        <train-test-donut-chart :algoName="algoName" :datasetName="datasetName" :train="train"></train-test-donut-chart>
       </b-card>
 
       <b-card border-variant="info" bg-variant="Light" text-variant="black" header="Sentiment Distribution" class="text-center">
-        <sentiment-donut-chart></sentiment-donut-chart>
+        <sentiment-donut-chart :algoName="algoName" :datasetName="datasetName" :train="train"></sentiment-donut-chart>
       </b-card>
 
 
@@ -76,6 +76,8 @@ export default {
   data: function () {
     return {
       datasetName: "MPCHI",
+      algoName: "UCLMR",
+      train: "0.8",
       datasetInfo: "This dataset contains health-related online news articles. The data provided contains" +
           " instances of: tweets, id, target and stance,\n\n where stance is one of  the following: favor, against, none. ",
       numOfRecords: 1533,
