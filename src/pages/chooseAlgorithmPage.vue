@@ -232,12 +232,18 @@
                 return response
             },
             async runModels_ourDataset(){
-                const response = await this.axios.post("http://127.0.0.1:5000/run_model", {
-                    email: this.clientEmail,
-                    array: this.chosenAlgorithms,
-                    ds_name: this.chosenDataset,
-                    percent: this.trainPercent,
-                });
+                let formData = new FormData();
+                formData.append('email',this.clientEmail);
+                formData.append('array', JSON.stringify(this.chosenAlgorithms));
+                formData.append('ds_name', JSON.stringify(this.chosenDataset));
+                formData.append('percent', this.trainPercent);
+                const response = await this.axios.post("http://127.0.0.1:5000/run_model",
+                    formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                },
+                );
                 return response
             },
             moveToDatasetPage(datasetName){
