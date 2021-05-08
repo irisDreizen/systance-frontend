@@ -42,7 +42,7 @@
                 const response = await this.axios.get(
                     "http://127.0.0.1:5000/get_topics"
                 );
-                this.options.push(...response.data)
+                this.options = response.data
             },
             async checkStance() {
                 if (this.chosenTopic === null || this.text === '') {

@@ -162,6 +162,8 @@
                 );
                 this.algorithms=[]
                 this.algorithms.push(...response.data)
+                this.chosenAlgorithms = new Array(this.algorithms.length)
+
             },
             async getDatasetsNames() {
                 const response = await this.axios.get(
@@ -218,7 +220,7 @@
                 let formData = new FormData();
                 formData.append('file', this.file);
                 formData.append('email',this.clientEmail);
-                formData.append('array', JSON.stringify(this.chosenAlgorithms));
+                formData.append('array', JSON.stringify(this.getChosenAlgorithmArray());
                 formData.append('percent', this.trainPercent);
                 formData.append('fileType', this.chosenFileType);
 
@@ -234,7 +236,7 @@
             async runModels_ourDataset(){
                 let formData = new FormData();
                 formData.append('email',this.clientEmail);
-                formData.append('array', JSON.stringify(this.chosenAlgorithms));
+                formData.append('array', JSON.stringify(this.getChosenAlgorithmArray()));
                 formData.append('ds_name', JSON.stringify(this.chosenDataset));
                 formData.append('percent', this.trainPercent);
                 const response = await this.axios.post("http://127.0.0.1:5000/run_model",
@@ -263,6 +265,16 @@
             validateEmail(email) {
                 const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
                 return re.test(String(email).toLowerCase());
+            },
+            getChosenAlgorithmArray(){
+                let algorithmsArray = [];
+                let i;
+                for (i = 0; i < this.chosenAlgorithms.length; i++) {
+                    if(this.chosenAlgorithms[i]===1){
+                        algorithmsArray.push(this.algorithms[i])
+                    }
+                }
+                return algorithmsArray;
             }
 
 
