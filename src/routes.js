@@ -21,6 +21,16 @@ const routes = [
         name: "chooseAlgorithmPage",
         component: () => import("./pages/chooseAlgorithmPage"),
     },
+    {
+        path: "/results/:resultId",
+        name: "results",
+        component: () => import("./pages/resultsPage"),
+    },
+    {
+        path: "/thanks",
+        name: "thanks",
+        component: () => import("./pages/emailPage"),
+    },
 ];
 
 export default routes;

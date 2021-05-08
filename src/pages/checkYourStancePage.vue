@@ -5,36 +5,59 @@
         </div>
         <br>
         <span class="content_span">Do you want to see something cool? Let us guess your stance!</span>
-        <div>
-            <b-dropdown id="dropdown-1" text="Choose A Topic" class="select_topic">
-                <b-dropdown-item  v-for="option in options"
-                                  :key="option.value"
-                                  :value="option.value"> {{option.text}}
-                </b-dropdown-item>
-            </b-dropdown>
+        <div class="centered_element">
+            <b-form-select v-model="chosenTopic" :options="options" aria-placeholder="Choose a topic"></b-form-select>
         </div>
         <div class="centered_element">
             <b-form-input v-model="text" placeholder="Enter your stance"></b-form-input>
         </div>
-        <b-button pill variant="info" size="md" style="margin-top: 20px">Check My Stance!</b-button>
+        <b-button pill variant="info" size="md" style="margin-top: 20px" v-on:click="checkStance">Check My Stance!</b-button>
+        <br>
+        <br>
+        <b-alert fade dismissible variant="primary" :show="showDismissibleAlert" @dismissed="showDismissibleAlert=false">You should enter both topic and stance</b-alert>
+        <span class="content_span" v-show="showStance">Your stance is: {{this.stance}}</span>
     </div>
 </template>
 
 <script>
     export default {
         name: "checkYourStancePage",
+        created() {
+            // this.getTopics()
+        },
         data(){
             return{
                 options: [
-                    { value: null, text: 'Topic1' },
-                    { value: 'a', text: 'Topic2' },
-                    { value: 'b', text: 'Topic3' },
-                    { value: { C: '3PO' }, text: 'Topic4' },
-                    { value: 'd', text: 'Topic5', disabled: true }
+                    { value: null, text: 'Select a topic', disabled: true },'a','b','c'
                 ],
-                text:''
+                text:'',
+                chosenTopic:null,
+                showDismissibleAlert: false,
+                stance:'',
+                showStance:false
             }
 
+        },
+        methods:{
+            async getTopics(){
+                const response = await this.axios.get(
+                    "http://localhost:5000/get_topics"
+                );
+                this.options.push(...response.data)
+            },
+            async checkStance() {
+                if (this.chosenTopic === null || this.text === '') {
+                    this.showDismissibleAlert = true
+                } else {
+                    // const response = await this.axios.get(
+                    //     "http://localhost:5000/get_stance/"+this.text+"/"+this.chosenTopic
+                    // );
+                    // this.stance = response.data
+                    this.stance = "lalala"
+                    this.showStance=true
+                }
+
+            },
         }
     }
 
@@ -59,7 +82,8 @@
         margin: 30px;
     }
     .centered_element{
-        margin-left: 28%;
+        margin-left: 18%;
+        margin-top: 20px;
         text-align: center;
         width: 600px;
     }

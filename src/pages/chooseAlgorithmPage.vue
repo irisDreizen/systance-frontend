@@ -17,12 +17,13 @@
         <br>
         <div class="mt-3">
             <b-card-group deck>
-                <b-card bg-variant="secondary" text-variant="white" header="Choose a dataset" class="text-center">
+                <b-card bg-variant="primary" text-variant="white" header="Choose a dataset" class="text-center">
 <!--                    <b-card-text>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</b-card-text>-->
                     <div class="form-group">
 <!--                        <label>What is your current employment status?</label><br/>-->
-                        <div v-for="dataset in datasets" :key="dataset.value">
-                            <input name="status"  type="radio" :value="dataset.value" v-model="chosenDataset" :disabled="chooseOwnFile"/> {{dataset.text}}
+                        <div v-for="(dataset,index) in datasets" :key="index">
+                            <input name="status"  type="radio" :value="dataset" v-model="chosenDataset" :disabled="chooseOwnFile"/> {{dataset}}
+                            <b-icon icon="exclamation-circle-fill" variant="warning" style="margin-left: 10px" v-b-tooltip="'click for more statistic of the data'" v-on:click="moveToDatasetPage(dataset)"></b-icon>
                             <br/>
                         </div>
                     </div>
@@ -39,36 +40,38 @@
                     <div v-show="chooseOwnFile">
                         <!-- Styled -->
                         <b-form-file
-                                v-model="file1"
-                                :state="Boolean(file1)"
+                                v-model="file"
+                                :state="Boolean(file)"
                                 placeholder="Choose a file or drop it here..."
                                 drop-placeholder="Drop file here..."
                         ></b-form-file>
                     </div>
                 </b-card>
 
-                <b-card bg-variant="primary" text-variant="white" header="Choose an algorithm" class="text-center">
+                <b-card bg-variant="secondary" text-variant="white" header="Choose an algorithm" class="text-center">
 <!--                    <b-card-text>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</b-card-text>-->
-                    <div class="custom-control custom-switch" v-for="(algorithm, index) in algorithms" :key="algorithm.value" >
+                    <div class="custom-control custom-switch" v-for="(algorithm, index) in algorithms" :key="index" >
                         <input
                                 type="checkbox"
                                 @click="clickOnOptionalAlgorithm(index)"
                         >
                         <label>
-                            {{ algorithm.text }}
+                            {{ algorithm}}
                         </label>
+                        <b-icon icon="exclamation-circle-fill" variant="warning" style="margin-left: 10px" v-b-tooltip="'click for more information about of the algorithm'"></b-icon>
                     </div>
                 </b-card>
 
             </b-card-group>
         </div>
         <br>
+        <b-form-input v-model="trainPercent" id="input-small" size="md" placeholder="Enter train data percent" class="centered_input"></b-form-input>
         <br>
         <b-form-checkbox v-model="chooseEmailFile">
             I would like to receive an email when running is completed
         </b-form-checkbox>
         <br>
-        <div class="centered_element">
+        <div class="centered_input">
             <b-form-input
                     v-model="clientEmail"
                     type="email"
@@ -76,7 +79,11 @@
                     v-show="chooseEmailFile"
             ></b-form-input>
         </div>
-        <b-button pill variant="info" size="md" style="margin-top: 20px">Run and compare!</b-button>
+        <b-button pill variant="info" size="md" style="margin-top: 20px" v-on:click="runModels">Run and compare!</b-button>
+        <br>
+        <br>
+        <b-alert fade dismissible variant="primary" :show="showDismissibleAlert" @dismissed="showDismissibleAlert=false" >You have to mark at least on algorithm and one dataset</b-alert>
+
 
     </div>
 </template>
@@ -86,43 +93,106 @@
         name: "ChooseAlgorithmPage",
         data(){
             return{
-                options: [
-                    { value: null, text: 'Topic1' },
-                    { value: 'a', text: 'Topic2' },
-                    { value: 'b', text: 'Topic3' },
-                    { value: { C: '3PO' }, text: 'Topic4' },
-                    { value: 'd', text: 'Topic5', disabled: true }
-                ],
                 algorithms: [
-                    { value: 'alg1', text: 'alg1' },
-                    { value: 'a;g2', text: 'alg2' },
-                    { value: 'alg3', text: 'alg3' },
+                    'alg1', 'alg2', 'alg3'
                 ],
                 chosenAlgorithms: new Array(10),
                 datasets: [
-                    { value: 'dataset1', text: 'dataset1' },
-                    { value: 'dataset2', text: 'dataset2' },
-                    { value: 'dataset3', text: 'dataset3' },
+                    'dataset1','dataset2', 'dataset3'
                 ],
                 text:'',
                 chosenDataset:'',
                 country:'',
-                file1: null,
+                file: null,
                 chooseOwnFile: false,
                 chooseEmailFile: false,
-                clientEmail:''
+                clientEmail:'',
+                trainPercent:'',
+                visible:false,
+                showDismissibleAlert: false,
+                showDismissibleAlert_trainPercent: false
+
+
             }
 
         },
+        created() {
+            // this.getAlgorithmsNames()
+            // this.getDatasetsNames()
+        },
         methods:{
             clickOnOptionalAlgorithm(index) {
+                console.log("index", index)
                 if(this.chosenAlgorithms[index]==1){
                     this.chosenAlgorithms[index]=0
                 }else{
                     this.chosenAlgorithms[index]=1
                 }
-                console.log(this.chosenDataset)
+                console.log(this.chosenAlgorithms)
             },
+            async getAlgorithmsNames() {
+                const response = await this.axios.get(
+                    "http://localhost:5000/algo_names"
+                );
+                this.algorithms=[]
+                this.algorithms.push(...response.data)
+            },
+            async getDatasetsNames() {
+                const response = await this.axios.get(
+                    "http://localhost:5000/dataset_names"
+                );
+                this.datasets=response.data
+            },
+            async submitFile() {
+                let formData = new FormData();
+                formData.append('file', this.file);
+                console.log('>> formData >> ', formData);
+
+                // You should have a server side REST API
+                const response = await this.axios.post('http://localhost:3000/fileCheck',
+                    formData, {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    }
+                )
+                return response.data
+            },
+            runModels() {
+                console.log("alertvariant:",this.alertvariant)
+                if(!this.chooseOwnFile && this.chosenDataset===''){
+                    this.showDismissibleAlert=true
+                }
+                else if(!this.chosenAlgorithms.includes(1))
+                    this.showDismissibleAlert=true;
+                else if(this.chooseOwnFile && this.file===null){
+                    this.showDismissibleAlert=true
+                }
+                else if(this.chooseEmailFile && this.clientEmail===''){
+                    this.showDismissibleAlert=true
+                }
+                else if(!this.chooseOwnFile){
+                    // const response = await this.axios.post("http://localhost:3000/runModel", {
+                    //     email: this.clientEmail,
+                    //     array: this.chosenAlgorithms,
+                    //     ds_name: this.chosenDataset,
+                    //     percent: this.trainPercent
+                    // });
+                }
+                else{
+                    //sending dataset from client - check how to do it!
+                }
+                if(this.chooseEmailFile){
+                    this.$router.push({name: 'thanks'});
+                }
+                else{
+                    //redirecting to result page - check how to redirect!
+                }
+            },
+            moveToDatasetPage(datasetName){
+
+            }
+
 
         }
 
@@ -140,6 +210,11 @@
     }
     .centered_element{
         margin-left: 40%;
+        text-align: center;
+        width: 300px;
+    }
+    .centered_input{
+        margin-left: 32%;
         text-align: center;
         width: 300px;
     }
