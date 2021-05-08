@@ -18,9 +18,7 @@
         <div class="mt-3">
             <b-card-group deck>
                 <b-card bg-variant="primary" text-variant="white" header="Choose a dataset" class="text-center">
-<!--                    <b-card-text>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</b-card-text>-->
                     <div class="form-group">
-<!--                        <label>What is your current employment status?</label><br/>-->
                         <div v-for="(dataset,index) in datasets" :key="index">
                             <input name="status"  type="radio" :value="dataset" v-model="chosenDataset" :disabled="chooseOwnFile"/> {{dataset}}
                             <b-icon icon="exclamation-circle-fill" variant="warning" style="margin-left: 10px" v-b-tooltip="'click for more statistic of the data'" v-on:click="moveToDatasetPage(dataset)"></b-icon>
@@ -33,19 +31,28 @@
                             name="checkbox-1">
                         I would like to add my own csv file
                     </b-form-checkbox>
-                    <br>
-                    <span v-show="chooseOwnFile">Please notice that you have to add CSV file with the the exactly columns names: Claim, Sentence, Stance (first letter in upper case), otherwise the program won't run.</span>
-                    <br>
-                    <br>
                     <div v-show="chooseOwnFile">
-                        <!-- Styled -->
-                        <b-form-file
-                                v-model="file"
-                                :state="Boolean(file)"
-                                placeholder="Choose a file or drop it here..."
-                                drop-placeholder="Drop file here..."
-                        ></b-form-file>
+                        <br>
+                        <span>Please notice that you have to add CSV file with the the exactly columns names: Claim, Sentence, Stance (first letter in upper case), otherwise the program won't run.</span>
+                        <br>
+                        <br>
+                            <b-form-file
+                                    v-model="file"
+                                    :state="Boolean(file)"
+                                    placeholder="Choose a file or drop it here..."
+                                    drop-placeholder="Drop file here..."
+                            ></b-form-file>
+                        <br>
+                        <br>
+                        <span >What is the type of your dataset?</span>
+                        <br>
+                        <div v-for="(fileType,index) in fileTypes" :key="index">
+                            <input name="status"  type="radio" :value="fileType.value" v-model="chosenFileType" /> {{fileType.text}}
+                            <b-icon icon="exclamation-circle-fill" variant="warning" style="margin-left: 10px" v-b-tooltip="fileType.info"></b-icon>
+                            <br/>
+                        </div>
                     </div>
+
                 </b-card>
 
                 <b-card bg-variant="secondary" text-variant="white" header="Choose an algorithm" class="text-center">
@@ -58,12 +65,24 @@
                         <label>
                             {{ algorithm}}
                         </label>
-                        <b-icon icon="exclamation-circle-fill" variant="warning" style="margin-left: 10px" v-b-tooltip="'click for more information about of the algorithm'"></b-icon>
+                        <b-icon icon="exclamation-circle-fill" variant="warning" style="margin-left: 10px" v-b-tooltip="'click for more information about of the algorithm'" v-on:click="openModal(algorithm)"></b-icon>
                     </div>
                 </b-card>
 
             </b-card-group>
         </div>
+        <div>
+            <b-modal id="bv-modal-example" hide-footer>
+                <template #modal-title>
+                    {{modalAlgorithmData}}
+                </template>
+                <div class="d-block text-center">
+                    {{modalAlgorithmInfo}}
+                </div>
+                <b-button class="mt-3" block @click="$bvModal.hide('bv-modal-example')">Got it!</b-button>
+            </b-modal>
+        </div>
+
         <br>
         <b-form-input v-model="trainPercent" id="input-small" size="md" placeholder="Enter train data percent" class="centered_input"></b-form-input>
         <br>
@@ -83,7 +102,8 @@
         <br>
         <br>
         <b-alert fade dismissible variant="primary" :show="showDismissibleAlert" @dismissed="showDismissibleAlert=false" >You have to mark at least on algorithm and one dataset</b-alert>
-
+        <b-alert fade dismissible variant="primary" :show="showDismissibleAlert_email" @dismissed="showDismissibleAlert_email=false" >Please enter a valid email</b-alert>
+        <b-alert fade dismissible variant="danger" :show="showDismissibleAlert_backendError" @dismissed="showDismissibleAlert_backendErrorl=false" >{{backendErrorText}}</b-alert>
 
     </div>
 </template>
@@ -100,6 +120,10 @@
                 datasets: [
                     'dataset1','dataset2', 'dataset3'
                 ],
+                fileTypes:[
+                    {value:'topic_based', text: 'topic based', info: 'Topic based dataset mean that you whould like to check a stance regarding to specific topic. An example for a topic might be Donald Trump'},
+                    {value: 'headline_based', text: 'headline based', info: 'Headline based dataset means that you you have a headline, and you would like to find out what the stance of the headline regarding to another text(article for example)' }],
+                chosenFileType:'',
                 text:'',
                 chosenDataset:'',
                 country:'',
@@ -110,15 +134,17 @@
                 trainPercent:'',
                 visible:false,
                 showDismissibleAlert: false,
-                showDismissibleAlert_trainPercent: false
-
-
+                showDismissibleAlert_email: false,
+                showDismissibleAlert_backendError: false,
+                modalAlgorithmData:'',
+                modalAlgorithmInfo:'',
+                backendErrorText:''
             }
 
         },
         created() {
-            // this.getAlgorithmsNames()
-            // this.getDatasetsNames()
+            this.getAlgorithmsNames()
+            this.getDatasetsNames()
         },
         methods:{
             clickOnOptionalAlgorithm(index) {
@@ -143,54 +169,94 @@
                 );
                 this.datasets=response.data
             },
-            async submitFile() {
-                let formData = new FormData();
-                formData.append('file', this.file);
-                console.log('>> formData >> ', formData);
-
-                // You should have a server side REST API
-                const response = await this.axios.post('http://localhost:3000/fileCheck',
-                    formData, {
-                        headers: {
-                            'Content-Type': 'multipart/form-data'
-                        }
-                    }
-                )
-                return response.data
-            },
             runModels() {
-                console.log("alertvariant:",this.alertvariant)
+                let response=null;
+                let id=null;
                 if(!this.chooseOwnFile && this.chosenDataset===''){
                     this.showDismissibleAlert=true
                 }
-                else if(!this.chosenAlgorithms.includes(1))
+                else if(!this.chosenAlgorithms.includes(1)){
                     this.showDismissibleAlert=true;
+                }
                 else if(this.chooseOwnFile && this.file===null){
                     this.showDismissibleAlert=true
                 }
                 else if(this.chooseEmailFile && this.clientEmail===''){
                     this.showDismissibleAlert=true
                 }
+                else if(this.chooseEmailFile && !this.validateEmail(this.clientEmail)){
+                    this.showDismissibleAlert_email = true
+                }
+                else if(this.chooseOwnFile && this.chosenFileType===''){
+                    this.showDismissibleAlert=true
+                }
                 else if(!this.chooseOwnFile){
-                    // const response = await this.axios.post("http://localhost:3000/runModel", {
-                    //     email: this.clientEmail,
-                    //     array: this.chosenAlgorithms,
-                    //     ds_name: this.chosenDataset,
-                    //     percent: this.trainPercent
-                    // });
+                    response = this.runModels_ourDataset()
+                    id = response.data;
                 }
                 else{
-                    //sending dataset from client - check how to do it!
+                    response = this.runModels_ownFile()
+                    id = response.data;
                 }
-                if(this.chooseEmailFile){
-                    this.$router.push({name: 'thanks'});
+                if(response.status === 501){
+                    this.showDismissibleAlert_backendError=true
                 }
-                else{
-                    //redirecting to result page - check how to redirect!
+                else if(this.showDismissibleAlert===false && this.showDismissibleAlert_email===false){
+                    if(this.chooseEmailFile){
+                        this.$router.push({name: 'thanks'});
+                    }
+                    else{
+                        this.$router.push({
+                            name: 'results',
+                            params: { resultId: id }
+                        });
+                    }
                 }
+
+            },
+            async runModels_ownFile(){
+                let formData = new FormData();
+                formData.append('file', this.file);
+                formData.append('email',this.clientEmail);
+                formData.append('array', JSON.stringify(this.chosenAlgorithms));
+                formData.append('percent', this.trainPercent);
+                formData.append('fileType', this.chosenFileType);
+
+                const response = await this.axios.post('http://localhost:3000/runModel_ownFile',
+                    formData, {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    },
+                );
+                return response
+            },
+            async runModels_ourDataset(){
+                const response = await this.axios.post("http://localhost:3000/runModel_ourDataSet", {
+                    email: this.clientEmail,
+                    array: this.chosenAlgorithms,
+                    ds_name: this.chosenDataset,
+                    percent: this.trainPercent,
+                });
+                return response
             },
             moveToDatasetPage(datasetName){
-
+                this.$router.push({
+                    name: 'datasetInfo',
+                    params: { datasetName: datasetName }
+                });
+            },
+            async openModal(algorithmName){
+                const response = await this.axios.get(
+                    "http://localhost:5000/algoInfo/"+algorithmName
+                );
+                this.modalAlgorithmData=algorithmName;
+                this.modalAlgorithmInfo=response.data;
+                this.$bvModal.show('bv-modal-example')
+            },
+            validateEmail(email) {
+                const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                return re.test(String(email).toLowerCase());
             }
 
 

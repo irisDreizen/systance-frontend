@@ -4,7 +4,8 @@ import routes from "./routes";
 import VueRouter from "vue-router";
 import "vue-easytable/libs/theme-default/index.css";
 import VueEasytable from "vue-easytable";
-
+import VueAxios from "vue-axios";
+import axios from "axios";
 
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
@@ -22,8 +23,7 @@ Vue.use(VueMeta)
 Vue.use(VueApexCharts)
 Vue.use(VueEasytable)
 
-import VueAxios from "vue-axios";
-import axios from "axios";
+
 Vue.use(VueRouter);
 const router = new VueRouter({
   routes,

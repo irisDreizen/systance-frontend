@@ -23,7 +23,7 @@
     export default {
         name: "checkYourStancePage",
         created() {
-            // this.getTopics()
+            this.getTopics()
         },
         data(){
             return{
@@ -36,7 +36,6 @@
                 stance:'',
                 showStance:false
             }
-
         },
         methods:{
             async getTopics(){
@@ -49,11 +48,10 @@
                 if (this.chosenTopic === null || this.text === '') {
                     this.showDismissibleAlert = true
                 } else {
-                    // const response = await this.axios.get(
-                    //     "http://localhost:5000/get_stance/"+this.text+"/"+this.chosenTopic
-                    // );
-                    // this.stance = response.data
-                    this.stance = "lalala"
+                    const response = await this.axios.get(
+                        "http://localhost:5000/get_stance/"+this.text+"/"+this.chosenTopic
+                    );
+                    this.stance = response.data;
                     this.showStance=true
                 }
 

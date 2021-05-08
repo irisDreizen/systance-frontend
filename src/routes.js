@@ -17,7 +17,7 @@ const routes = [
         component: () => import("./pages/aboutPage"),
     },
     {
-        path: "/datasetInfo",
+        path: "/datasetInfo/:datasetName",
         name: "datasetInfo",
         component: () => import("./pages/datasetInfoPage"),
     },
