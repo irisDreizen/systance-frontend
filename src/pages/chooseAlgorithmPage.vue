@@ -237,7 +237,7 @@
                 let formData = new FormData();
                 formData.append('email',this.clientEmail);
                 formData.append('array', this.getChosenAlgorithmArray());
-                formData.append('ds_name', JSON.stringify(this.chosenDataset));
+                formData.append('ds_name', this.chosenDataset);
                 formData.append('percent', this.trainPercent);
                 const response = await this.axios.post("http://127.0.0.1:5000/run_model",
                     formData, {
