@@ -40,7 +40,7 @@
         methods:{
             async getTopics(){
                 const response = await this.axios.get(
-                    "http://localhost:5000/get_topics"
+                    "http://127.0.0.1:5000/get_topics"
                 );
                 this.options.push(...response.data)
             },
@@ -49,7 +49,7 @@
                     this.showDismissibleAlert = true
                 } else {
                     const response = await this.axios.get(
-                        "http://localhost:5000/get_stance/"+this.text+"/"+this.chosenTopic
+                        "http://127.0.0.1:5000/get_stance/"+this.text+"/"+this.chosenTopic
                     );
                     this.stance = response.data;
                     this.showStance=true

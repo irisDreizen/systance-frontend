@@ -158,14 +158,14 @@
             },
             async getAlgorithmsNames() {
                 const response = await this.axios.get(
-                    "http://localhost:5000/algo_names"
+                    "http://127.0.0.1:5000/algo_names"
                 );
                 this.algorithms=[]
                 this.algorithms.push(...response.data)
             },
             async getDatasetsNames() {
                 const response = await this.axios.get(
-                    "http://localhost:5000/dataset_names"
+                    "http://127.0.0.1:5000/dataset_names"
                 );
                 this.datasets=response.data
             },
@@ -222,7 +222,7 @@
                 formData.append('percent', this.trainPercent);
                 formData.append('fileType', this.chosenFileType);
 
-                const response = await this.axios.post('http://localhost:3000/runModel_ownFile',
+                const response = await this.axios.post('http://127.0.0.1:5000/add_dataset_run_model',
                     formData, {
                         headers: {
                             'Content-Type': 'multipart/form-data'
@@ -232,7 +232,7 @@
                 return response
             },
             async runModels_ourDataset(){
-                const response = await this.axios.post("http://localhost:3000/runModel_ourDataSet", {
+                const response = await this.axios.post("http://127.0.0.1:5000/run_model", {
                     email: this.clientEmail,
                     array: this.chosenAlgorithms,
                     ds_name: this.chosenDataset,
@@ -248,7 +248,7 @@
             },
             async openModal(algorithmName){
                 const response = await this.axios.get(
-                    "http://localhost:5000/algoInfo/"+algorithmName
+                    "http://127.0.0.1:5000/models_desc/"+algorithmName
                 );
                 this.modalAlgorithmData=algorithmName;
                 this.modalAlgorithmInfo=response.data;
