@@ -171,46 +171,37 @@
                 );
                 this.datasets=response.data
             },
-            runModels() {
-                let response=null;
-                let id=null;
-                if(!this.chooseOwnFile && this.chosenDataset===''){
-                    this.showDismissibleAlert=true
-                }
-                else if(!this.chosenAlgorithms.includes(1)){
-                    this.showDismissibleAlert=true;
-                }
-                else if(this.chooseOwnFile && this.file===null){
-                    this.showDismissibleAlert=true
-                }
-                else if(this.chooseEmailFile && this.clientEmail===''){
-                    this.showDismissibleAlert=true
-                }
-                else if(this.chooseEmailFile && !this.validateEmail(this.clientEmail)){
+            async runModels() {
+                let response = null;
+                let id = null;
+                if (!this.chooseOwnFile && this.chosenDataset === '') {
+                    this.showDismissibleAlert = true
+                } else if (!this.chosenAlgorithms.includes(1)) {
+                    this.showDismissibleAlert = true;
+                } else if (this.chooseOwnFile && this.file === null) {
+                    this.showDismissibleAlert = true
+                } else if (this.chooseEmailFile && this.clientEmail === '') {
+                    this.showDismissibleAlert = true
+                } else if (this.chooseEmailFile && !this.validateEmail(this.clientEmail)) {
                     this.showDismissibleAlert_email = true
-                }
-                else if(this.chooseOwnFile && this.chosenFileType===''){
-                    this.showDismissibleAlert=true
-                }
-                else if(!this.chooseOwnFile){
-                    response = this.runModels_ourDataset()
+                } else if (this.chooseOwnFile && this.chosenFileType === '') {
+                    this.showDismissibleAlert = true
+                } else if (!this.chooseOwnFile) {
+                    response = await this.runModels_ourDataset()
+                    id = response.data;
+                } else {
+                    response = await this.runModels_ownFile()
                     id = response.data;
                 }
-                else{
-                    response = this.runModels_ownFile()
-                    id = response.data;
-                }
-                if(response.status === 501){
-                    this.showDismissibleAlert_backendError=true
-                }
-                else if(this.showDismissibleAlert===false && this.showDismissibleAlert_email===false){
-                    if(this.chooseEmailFile){
+                if (response.status === 501) {
+                    this.showDismissibleAlert_backendError = true
+                } else if (this.showDismissibleAlert === false && this.showDismissibleAlert_email === false) {
+                    if (this.chooseEmailFile) {
                         this.$router.push({name: 'thanks'});
-                    }
-                    else{
+                    } else {
                         this.$router.push({
                             name: 'results',
-                            params: { resultId: id }
+                            params: {resultId: id}
                         });
                     }
                 }
