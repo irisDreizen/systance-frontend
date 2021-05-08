@@ -7,11 +7,15 @@
           <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
           <b-collapse id="nav-collapse" is-nav>
               <b-navbar-nav>
-                  <b-nav-item href="#">About</b-nav-item>
-                  <b-nav-item
-                    ><router-link :to="{ name: 'Statistics' }">Statistics</router-link>
+                  <b-nav-item>
+                    <router-link :to="{ name: 'about' }">About</router-link>
                   </b-nav-item>
-                  <b-nav-item href="#">Compare Your Algorithm</b-nav-item>
+                  <b-nav-item
+                    ><router-link :to="{ name: 'results' }">Results</router-link>
+                  </b-nav-item>
+                <b-nav-item
+                ><router-link :to="{ name: 'datasetInfo' }">Dataset Info</router-link>
+                </b-nav-item>
               </b-navbar-nav>
 
               <!-- Right aligned nav items -->

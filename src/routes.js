@@ -7,9 +7,19 @@ const routes = [
         component: Main,
     },
     {
-        path: "/Statistics",
-        name: "Statistics",
-        component: () => import("./pages/Statistics"),
+        path: "/results",
+        name: "results",
+        component: () => import("./pages/resultsPage"),
+    },
+    {
+        path: "/about",
+        name: "about",
+        component: () => import("./pages/aboutPage"),
+    },
+    {
+        path: "/datasetInfo",
+        name: "datasetInfo",
+        component: () => import("./pages/datasetInfoPage"),
     },
     {
         path: "/CheckYourStance",
