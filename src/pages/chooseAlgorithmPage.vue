@@ -220,7 +220,7 @@
                 let formData = new FormData();
                 formData.append('file', this.file);
                 formData.append('email',this.clientEmail);
-                formData.append('array', JSON.stringify(this.getChosenAlgorithmArray());
+                formData.append('array', this.getChosenAlgorithmArray());
                 formData.append('percent', this.trainPercent);
                 formData.append('fileType', this.chosenFileType);
 
@@ -236,7 +236,7 @@
             async runModels_ourDataset(){
                 let formData = new FormData();
                 formData.append('email',this.clientEmail);
-                formData.append('array', JSON.stringify(this.getChosenAlgorithmArray()));
+                formData.append('array', this.getChosenAlgorithmArray());
                 formData.append('ds_name', JSON.stringify(this.chosenDataset));
                 formData.append('percent', this.trainPercent);
                 const response = await this.axios.post("http://127.0.0.1:5000/run_model",
@@ -268,13 +268,18 @@
             },
             getChosenAlgorithmArray(){
                 let algorithmsArray = [];
+                let algorithmsArray_string ='';
                 let i;
+                let j;
                 for (i = 0; i < this.chosenAlgorithms.length; i++) {
                     if(this.chosenAlgorithms[i]===1){
                         algorithmsArray.push(this.algorithms[i])
                     }
                 }
-                return algorithmsArray;
+                for (j=0 ; j<algorithmsArray.length; j++){
+                    algorithmsArray_string = algorithmsArray_string + algorithmsArray[j] + ","
+                }
+                return algorithmsArray_string;
             }
 
 
