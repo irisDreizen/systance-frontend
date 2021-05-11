@@ -40,68 +40,35 @@ export default {
         );
 
         var responseData = response.data;
+        this.tableData=responseData['tableData'];
 
-        this.tableData = [
-          {
-            claim: null,
-            sentence: null,
-            stance: null,
-          },
-          {
-            claim: null,
-            sentence: null,
-            stance: null,
-          },
-          {
-            claim: null,
-            sentence: null,
-            stance: null,
-          },
-          {
-            claim: null,
-            sentence: null,
-            stance: null,
-          },
-          {
-            claim: null,
-            sentence: null,
-            stance: null,
-          },
-        ];
-
-        for(var i = 0; i < responseData.length; i++){
-          this.tableData[i].claim = responseData[i]["claim"];
-          this.tableData[i].sentence = responseData[i]["sentence"];
-          this.tableData[i].stance = responseData[i]["stance"];
-        }
-
-        this.tableData = [
-          {
-            claim: "Are E-Cigarettes safe?",
-            sentence: "The report concluded that \"There is no indication that EC users are exposed to dangerous levels of formaldehydes.",
-            stance: "FAVOR",
-          },
-          {
-            claim: "Are E-Cigarettes safe?",
-            sentence: "Nicotine is no more dangerous to health than coffee, but 90 percent of the public still consider it harmful, according to a report from the U.K.?s Royal Society for Public Health.",
-            stance: "FAVOR",
-          },
-          {
-            claim: "Are E-Cigarettes safe?",
-            sentence: "The health effects on intensive e-cigarette users are unknown.",
-            stance: "NONE",
-          },
-          {
-            claim: "Are E-Cigarettes safe?",
-            sentence: "Vapor e-liquid products contain chemicals known to the State of California to cause cancer, birth defects, and other reproductive harm.",
-            stance: "AGAINST",
-          },
-          {
-            claim: "Are E-Cigarettes safe?",
-            sentence: "Researchers at the University of California, San Francisco followed a small group of smokers for a year and found no link between trying e-cigarettes and quitting, or cutting down on smoking.",
-            stance: "NONE",
-          },
-        ];
+        // this.tableData = [
+        //   {
+        //     claim: "Are E-Cigarettes safe?",
+        //     sentence: "The report concluded that \"There is no indication that EC users are exposed to dangerous levels of formaldehydes.",
+        //     stance: "FAVOR",
+        //   },
+        //   {
+        //     claim: "Are E-Cigarettes safe?",
+        //     sentence: "Nicotine is no more dangerous to health than coffee, but 90 percent of the public still consider it harmful, according to a report from the U.K.?s Royal Society for Public Health.",
+        //     stance: "FAVOR",
+        //   },
+        //   {
+        //     claim: "Are E-Cigarettes safe?",
+        //     sentence: "The health effects on intensive e-cigarette users are unknown.",
+        //     stance: "NONE",
+        //   },
+        //   {
+        //     claim: "Are E-Cigarettes safe?",
+        //     sentence: "Vapor e-liquid products contain chemicals known to the State of California to cause cancer, birth defects, and other reproductive harm.",
+        //     stance: "AGAINST",
+        //   },
+        //   {
+        //     claim: "Are E-Cigarettes safe?",
+        //     sentence: "Researchers at the University of California, San Francisco followed a small group of smokers for a year and found no link between trying e-cigarettes and quitting, or cutting down on smoking.",
+        //     stance: "NONE",
+        //   },
+        // ];
 
       } catch (error) {
         console.log(error);

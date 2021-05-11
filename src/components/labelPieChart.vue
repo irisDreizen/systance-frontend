@@ -55,15 +55,17 @@ export default {
 
         var responseData = response.data;
 
-        this.series = responseData['series'];
-        this.chartOptions.labels = responseData['labels'];
+        for(var i = 0; i < responseData['series'].length; i++){
+          this.series.push(responseData['series'][i]);
+        }
+
+        for(var j = 0; j < responseData['labels'].length; j++){
+          this.chartOptions.labels.push(responseData['labels'][j]);
+        }
 
         // this.series.push(989, 349, 290);
         //
         // this.chartOptions.labels.push('Against (989)', 'Favor (349)', 'None (290)');
-
-
-
 
       } catch (error) {
         console.log(error);
