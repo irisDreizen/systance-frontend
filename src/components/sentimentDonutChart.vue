@@ -61,7 +61,7 @@ export default {
     async update(){
       try{
         const response = await this.axios.get(
-            "http://127.0.0.1:5000/get_positive_negative" + this.datasetName
+            "http://127.0.0.1:5000/get_positive_negative/" + this.datasetName
         );
 
         var responseData = response.data;
