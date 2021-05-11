@@ -74,14 +74,14 @@ export default {
   methods: {
     async getData(){
       try{
-        // let formData = new FormData();
-        // formData.append('model', this.algoName);
-        // formData.append('ds_name', this.datasetName);
-        // formData.append('percent', this.train);
-        // const response = await this.axios.get(
-        //     "http://127.0.0.1:5000/ActualVSPredict"
-        // );
-        // this.params.data = response.data;
+        let formData = new FormData();
+        formData.append('model', this.algoName);
+        formData.append('ds_name', this.datasetName);
+        formData.append('percent', this.train);
+        const response = await this.axios.get(
+            "http://127.0.0.1:5000/ActualVSPredict/"
+        );
+        var responseData = response.data;
 
 
         this.series = [{
@@ -92,11 +92,26 @@ export default {
           data: []
         }];
 
-        this.series[0].name = "Actual";
-        this.series[0].data.push(1002,280,346);
+        this.series[0].name = responseData[0]['name'];
 
-        this.series[1].name = "Predict";
-        this.series[1].data.push(989, 349, 290);
+        for(var i = 0; i < this.series[0]['data'].length; i++){
+          this.series[0].data.push(this.series[0]['data'][i])
+        }
+
+        this.series[1].name = responseData[1]['name'];
+
+        for(var j = 1; i < this.series[1]['data'].length; j++){
+          this.series[1].data.push(this.series[1]['data'][j])
+        }
+
+        // this.series[1].name = "Predict";
+        // this.series[1].data.push(989, 349, 290);
+
+        // this.series[0].name = "Actual";
+        // this.series[0].data.push(1002,280,346);
+        //
+        // this.series[1].name = "Predict";
+        // this.series[1].data.push(989, 349, 290);
 
 
       } catch (error) {

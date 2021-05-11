@@ -41,9 +41,9 @@ export default {
         // this.params.data = response.data;
 
 
-        this.datasetName = 'MPCHI';
+        this.datasetName = 'semEval2016';
         this.train = 70;
-        this.results.push("UCLMR","TAN","SEN");
+        this.results.push("TRANSFORMER");
 
 
       } catch (error) {

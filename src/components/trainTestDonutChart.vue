@@ -63,9 +63,9 @@ export default {
         // let formData = new FormData();
         // formData.append('ds_name', this.datasetName);
         // const response = await this.axios.get(
-        //     "http://127.0.0.1:5000/train_test_records"
+        //     "http://127.0.0.1:5000/train_test_records/"
         // );
-        // this.params.data = response.data;
+        //this.params.data = response.data;
         this.series.push(1073, 460);
 
       } catch (error) {
