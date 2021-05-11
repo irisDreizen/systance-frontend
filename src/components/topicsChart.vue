@@ -65,19 +65,23 @@ export default {
   methods: {
     async update(){
       try{
-        // let formData = new FormData();
-        // formData.append('ds_name', this.datasetName);
-        // const response = await this.axios.get(
-        //     "http://127.0.0.1:5000/get_topics_and_number" + ds_name
-        // );
-        // this.params.data = response.data;
-        this.series = [{
-          data: [44, 55, 41, 17, 15]
-        }, ];
-        this.chartOptions.xaxis.categories.push('Atheism', 'Abortion', 'Guns', 'Trump', 'Hilary Clinton');
+        const response = await this.axios.get(
+            "http://127.0.0.1:5000/get_topics_and_number/" + this.datasetName
+        );
+        var responseData = response.data;
 
+        for(var i = 0; i < responseData['data'].length; i++){
+          this.series.push(responseData['data'][i])
+        }
 
+        for(var i = 0; i < responseData['categories'].length; i++){
+          this.chartOptions.xaxis.categories.push(responseData['categories'][i])
+        }
 
+        // this.series = [{
+        //   data: [44, 55, 41, 17, 15]
+        // }, ];
+        // this.chartOptions.xaxis.categories.push('Atheism', 'Abortion', 'Guns', 'Trump', 'Hilary Clinton');
 
       } catch (error) {
         console.log(error);
