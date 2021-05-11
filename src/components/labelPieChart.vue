@@ -15,15 +15,7 @@ export default {
     apexchart: VueApexCharts,
   },
   props: {
-    algoName: {
-      type: String,
-      required: true
-    },
     datasetName: {
-      type: String,
-      required: true
-    },
-    train: {
       type: String,
       required: true
     },
@@ -57,17 +49,13 @@ export default {
   methods: {
     async update(){
       try{
+        // let formData = new FormData();
+        // formData.append('ds_name', this.datasetName);
         // const response = await this.axios.get(
-        //     "http://localhost:3000/results/labelPieChart",
-        //     {
-        //       params: {
-        //         algoName: this.algoName,
-        //         datasetName: this.datasetName,
-        //         train: this.train
-        //       },
-        //     }
+        //     "http://127.0.0.1:5000/labelPieChart" + ds_name
         // );
-        // this.params.data = response.data;
+
+        //this.params.data = response.data;
         this.series.push(989, 349, 290);
 
         this.chartOptions.labels.push('Against (989)', 'Favor (349)', 'None (290)');

@@ -4,7 +4,7 @@
       <router-link
           :to="{
             name: 'results',
-            params: algoName, accuracy
+            params: {algoName, datasetName, train}
           }">
         <b-card-title
             class="recipe-title"
@@ -18,11 +18,19 @@
 <script>
 export default {
   name: "resultsPreview",
-  data: function () {
-    return {
-      algoName: "UCLMR",
-      accuracy: 0.7
-    }
+  props: {
+    algoName: {
+      type: String,
+      required: true
+    },
+    datasetName: {
+      type: String,
+      required: true
+    },
+    train: {
+      type: String,
+      required: true
+    },
   }
 }
 </script>

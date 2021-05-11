@@ -58,21 +58,44 @@
   export default {
     name: "results",
     components: {
-        StatisticsTable,
+      StatisticsTable,
       ROCCurve,
       actualVsPredict,
       ConfusionMatrix
     },
-    methods: {
-
-    },
-    data: function() {
+    data: function () {
       return {
-        accuracy: 0.7,
-        rocaucscore: 0.68,
-        datasetName: 'MPCHI',
-        algoName: 'UCLMR',
-        train: '0.8'
+        accuracy: null,
+        rocaucscore: null,
+        datasetName: null,
+        algoName: null,
+        train: null
+      }
+    },
+    async created() {
+      this.created();
+    },
+    methods: {
+      async created() {
+        try {
+          this.datasetName = this.$route.params.datasetName;
+          this.algoName = this.$route.params.algoName;
+          this.train = this.$route.params.train;
+
+          // let formData = new FormData();
+          // formData.append('model', this.algoName);
+          // formData.append('ds_name', this.datasetName);
+          // formData.append('percent', this.train);          // const response = await this.axios.get(
+          //     "http://127.0.0.1:5000/resultsModelDataset"
+          // );
+          // this.params.data = response.data;
+          this.accuracy = 0.7;
+          this.rocaucscore = 0.68;
+
+
+        } catch (error) {
+          console.log(error);
+        }
       }
     }
   }

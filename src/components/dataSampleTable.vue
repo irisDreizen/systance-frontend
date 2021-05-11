@@ -9,15 +9,7 @@
 export default {
   name: 'dataSampleTable',
   props: {
-    algoName: {
-      type: String,
-      required: true
-    },
     datasetName: {
-      type: String,
-      required: true
-    },
-    train: {
       type: String,
       required: true
     },
@@ -43,18 +35,45 @@ export default {
   methods: {
     async update(){
       try{
-        // const response = await this.axios.get(
-        //     "http://localhost:3000/results/dataSample",
-        //     {
-        //       params: {
-        //         algoName: this.algoName,
-        //         datasetName: this.datasetName,
-        //         train: this.train
-        //       },
-        //     }
-        // );
-        // this.params.data = response.data;
+        const response = await this.axios.get(
+            "http://127.0.0.1:5000/five_sentences_dataset/" + this.datasetName
+        );
 
+        var responseData = response.data;
+
+        this.tableData = [
+          {
+            claim: null,
+            sentence: null,
+            stance: null,
+          },
+          {
+            claim: null,
+            sentence: null,
+            stance: null,
+          },
+          {
+            claim: null,
+            sentence: null,
+            stance: null,
+          },
+          {
+            claim: null,
+            sentence: null,
+            stance: null,
+          },
+          {
+            claim: null,
+            sentence: null,
+            stance: null,
+          },
+        ];
+
+        for(var i = 0; i < responseData.length; i++){
+          this.tableData[i].claim = responseData[i]["claim"];
+          this.tableData[i].sentence = responseData[i]["sentence"];
+          this.tableData[i].stance = responseData[i]["stance"];
+        }
 
         this.tableData = [
           {

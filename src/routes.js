@@ -32,7 +32,12 @@ const routes = [
         component: () => import("./pages/chooseAlgorithmPage"),
     },
     {
-        path: "/results/:resultId",
+        path: "/resultsPreview/:resultId",
+        name: "resultsPreview",
+        component: () => import("./pages/resultsPreviewPage"),
+    },
+    {
+        path: "/results/",
         name: "results",
         component: () => import("./pages/resultsPage"),
     },

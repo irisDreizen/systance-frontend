@@ -44,17 +44,16 @@
     methods: {
       async update(){
         try{
+          // let formData = new FormData();
+          // formData.append('model', this.algoName);
+          // formData.append('ds_name', this.datasetName);
+          // formData.append('percent', this.train);
           // const response = await this.axios.get(
-          //     "http://localhost:3000/results/statisticsTable",
-          //     {
-          //       params: {
-          //         algoName: this.algoName,
-          //         datasetName: this.datasetName,
-          //         train: this.train
-          //       },
-          //     }
+          //     "http://127.0.0.1:5000/statisticsTable"
           // );
-          // this.params.data = response.data;
+
+          //this.params.data = response.data;
+
           this.params.data = [
             ['Label', 'Precision', 'Recall', 'F-Score', 'Support'],
             ['AGAINST', '0.81', '0.58', '0.68', '989'],

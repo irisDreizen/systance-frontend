@@ -68,38 +68,52 @@ export default {
     }
   },
   mounted(){
-    this.update();
+    this.getData();
+    this.getCategories();
   },
   methods: {
-    async update(){
+    async getData(){
       try{
+        // let formData = new FormData();
+        // formData.append('model', this.algoName);
+        // formData.append('ds_name', this.datasetName);
+        // formData.append('percent', this.train);
         // const response = await this.axios.get(
-        //     "http://localhost:3000/results/actualVsPredict",
-        //     {
-        //       params: {
-        //         algoName: this.algoName,
-        //         datasetName: this.datasetName,
-        //         train: this.train
-        //       },
-        //     }
+        //     "http://127.0.0.1:5000/ActualVSPredict"
         // );
         // this.params.data = response.data;
 
 
         this.series = [{
-          name: "Actual",
-          data: [1002, 280, 346]
+          name: "",
+          data: []
         }, {
-          name: "Predict",
-          data: [989, 349, 290]
+          name: "",
+          data: []
         }];
 
-        this.chartOptions.xaxis.categories.push('Against', 'For', 'Observing');
+        this.series[0].name = "Actual";
+        this.series[0].data.push(1002,280,346);
+
+        this.series[1].name = "Predict";
+        this.series[1].data.push(989, 349, 290);
 
 
       } catch (error) {
         console.log(error);
       }
+    },
+    async getCategories(){
+      // let formData = new FormData();
+      // formData.append('ds_name', this.datasetName);
+      // const response = await this.axios.get(
+      //     "http://localhost:3000/catagories/"+this.datasetName
+      // );
+      // this.params.data = response.data;
+
+      this.chartOptions.xaxis.categories.push('Against', 'For', 'Observing');
+
+
     }
   }
 }

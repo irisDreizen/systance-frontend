@@ -85,17 +85,16 @@ export default {
   methods: {
     async update(){
       try{
+        // let formData = new FormData();
+        // formData.append('model', this.algoName);
+        // formData.append('ds_name', this.datasetName);
+        // formData.append('percent', this.train);
         // const response = await this.axios.get(
-        //     "http://localhost:3000/results/ROCCurve",
-        //     {
-        //       params: {
-        //         algoName: this.algoName,
-        //         datasetName: this.datasetName,
-        //         train: this.train
-        //       },
-        //     }
+        //     "http://127.0.0.1:5000/tpr_fpr"
         // );
-        // this.params.data = response.data;
+
+        //this.params.data = response.data;
+
         // add width and dash array
         this.series = [{
           name: "Against",
