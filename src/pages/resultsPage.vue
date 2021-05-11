@@ -82,15 +82,20 @@
           this.algoName = this.$route.params.algoName;
           this.train = this.$route.params.train;
 
-          // let formData = new FormData();
-          // formData.append('model', this.algoName);
-          // formData.append('ds_name', this.datasetName);
-          // formData.append('percent', this.train);          // const response = await this.axios.get(
-          //     "http://127.0.0.1:5000/resultsModelDataset"
-          // );
-          // this.params.data = response.data;
-          this.accuracy = 0.7;
-          this.rocaucscore = 0.68;
+          let formData = new FormData();
+          formData.append('model', this.algoName);
+          formData.append('ds_name', this.datasetName);
+          formData.append('percent', this.train);
+          const response = await this.axios.post(
+              "http://127.0.0.1:5000/resultsModelDataset",formData, {
+                    headers: {
+                      'Content-Type': 'multipart/form-data'
+                    }
+                  },
+          );
+          var response_data = response.data;
+          this.accuracy = response_data['accuracy']
+          this.rocaucscore = response_data['rocaucscore']
 
 
         } catch (error) {

@@ -69,7 +69,6 @@ export default {
   },
   mounted(){
     this.getData();
-    this.getCategories();
   },
   methods: {
     async getData(){
@@ -101,28 +100,30 @@ export default {
         }];
 
         this.series[0].name= 'Actual';
-        this.series[0].data= responseData['Actual'];
+        this.series[0].data= responseData[0]['Actual'];
 
 
         this.series[1].name= 'Predict';
-        this.series[1].data= responseData['Predict'];
+        this.series[1].data= responseData[0]['Predict'];
+
+        //
+        // const response_c = await this.axios.get(
+        //         "http://127.0.0.1:5000/catagories/"+this.datasetName
+        // );
+        // // this.params.data = response.data;
+        //
+        // console.log(this.datasetName)
+        //
+        // var responseData_c = responseData['']
+        //
+        // console.log(responseData_c['categories'])
 
 
-        const response_c = await this.axios.get(
-                "http://127.0.0.1:5000/catagories/"+this.datasetName
-        );
-        // this.params.data = response.data;
-
-        console.log(this.datasetName)
-
-        var responseData_c = response_c.data;
-
-        console.log(responseData_c)
-
-
-        for(var i = 0; i < responseData_c['categories'].length; i++){
-          this.chartOptions.xaxis.categories.push(responseData_c['categories'][i]);
+        for(var i = 0; i < responseData[1]['categories'].length; i++){
+          this.chartOptions.xaxis.categories.push(responseData[1]['categories'][i]);
         }
+
+        console.log(this.chartOptions.xaxis.categories)
 
         // for(var i = 0; i < this.series[0]['data'].length; i++){
         //   this.series[0].data.push(this.series[0]['data'][i])
@@ -147,30 +148,12 @@ export default {
       } catch (error) {
         console.log(error);
       }
-    },
-    async getCategories(){
-
-      const response = await this.axios.get(
-          "http://127.0.0.1:5000/catagories/"+this.datasetName
-      );
-      // this.params.data = response.data;
-
-      console.log(this.datasetName)
-
-      var responseData = response.data;
-
-      console.log(response.data)
-
-
-      for(var i = 0; i < responseData['categories'].length; i++){
-        this.chartOptions.xaxis.categories.push(responseData['categories'][i]);
-      }
-
-
-      // this.chartOptions.xaxis.categories.push('Against', 'For', 'Observing');
-
-
     }
+
+
+
+
+
   }
 }
 </script>

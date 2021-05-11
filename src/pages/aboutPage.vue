@@ -33,17 +33,28 @@ export default {
   methods: {
     async update(){
       try{
-        // let formData = new FormData();
-        // formData.append('ds_name', this.datasetName);
-        // const response = await this.axios.get(
-        //     "http://127.0.0.1:5000/result" +
-        // );
-        // this.params.data = response.data;
+
+        const response = await this.axios.get(
+            "http://127.0.0.1:5000/result/" +1
+        );
+        var response_data= response.data;
+
+        this.datasetName=response_data[1]
 
 
-        this.datasetName = 'MPCHI';
-        this.train = 70;
-        this.results.push("UCLMR");
+        this.train=response_data[2]
+
+
+        for(var i = 0; i < response_data[0].length; i++){
+          this.results.push(response_data[0][i]);
+        }
+
+
+
+        //
+        // this.datasetName = 'MPCHI';
+        // this.train = 70;
+        // this.results.push("UCLMR");
 
 
       } catch (error) {

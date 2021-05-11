@@ -88,15 +88,18 @@ export default {
         //this.datasetName = this.$route.params.datasetName;
         this.datasetName = "MPCHI";
 
+        const response = await this.axios.get(
+                "http://127.0.0.1:5000/dataSetInfo/"+ this.datasetName
+        );
 
-        // let formData = new FormData();
-        // formData.append('ds_name', this.datasetName);
-        //     "http://127.0.0.1:5000/datasetInfo/"+ this.datasetName
-        // );
-        // this.params.data = response.data;
-        this.datasetInfo = "This dataset contains health-related online news articles. The data provided contains" +
-            " instances of: tweets, id, target and stance,\n\n where stance is one of  the following: favor, against, none.";
-        this.numOfRecords = 1553;
+        var response_data=response.data;
+        this.datasetInfo=response_data['datasetInfo']
+        this.numOfRecords=response_data['numOfRecords']
+
+
+        // this.datasetInfo = "This dataset contains health-related online news articles. The data provided contains" +
+        //     " instances of: tweets, id, target and stance,\n\n where stance is one of  the following: favor, against, none.";
+        // this.numOfRecords = 1553;
 
 
       } catch (error) {
