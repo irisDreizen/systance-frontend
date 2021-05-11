@@ -60,13 +60,27 @@ export default {
   methods: {
     async update(){
       try{
-        // let formData = new FormData();
-        // formData.append('ds_name', this.datasetName);
-        // const response = await this.axios.get(
-        //     "http://127.0.0.1:5000/train_test_records/"
-        // );
-        //this.params.data = response.data;
-        this.series.push(1073, 460);
+        let formData = new FormData();
+        formData.append('model', 'UCLMR');
+        formData.append('ds_name', this.datasetName);
+        formData.append('percent',70);
+        const response = await this.axios.post(
+            "http://127.0.0.1:5000/train_test_records",formData, {
+                  headers: {
+                    'Content-Type': 'multipart/form-data'
+                  }
+                },
+        );
+
+        // this.series.push(1073, 460);
+
+        var responseData = response.data;
+
+        console.log(responseData)
+        for(var i = 0; i < responseData['series'].length; i++){
+          this.series.push(responseData['series'][i]);
+        }
+
 
       } catch (error) {
         console.log(error);

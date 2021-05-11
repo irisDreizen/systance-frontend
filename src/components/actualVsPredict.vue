@@ -77,11 +77,19 @@ export default {
         let formData = new FormData();
         formData.append('model', this.algoName);
         formData.append('ds_name', this.datasetName);
-        formData.append('percent', this.train);
-        const response = await this.axios.get(
-            "http://127.0.0.1:5000/ActualVSPredict/"
+        formData.append('percent',this.train);
+        const response = await this.axios.post(
+            "http://127.0.0.1:5000/ActualVSPredict",formData, {
+                  headers: {
+                    'Content-Type': 'multipart/form-data'
+                  }
+                },
         );
+
+
         var responseData = response.data;
+
+        console.log(responseData)
 
 
         this.series = [{
@@ -92,17 +100,39 @@ export default {
           data: []
         }];
 
-        this.series[0].name = responseData[0]['name'];
+        this.series[0].name= 'Actual';
+        this.series[0].data= responseData['Actual'];
 
-        for(var i = 0; i < this.series[0]['data'].length; i++){
-          this.series[0].data.push(this.series[0]['data'][i])
+
+        this.series[1].name= 'Predict';
+        this.series[1].data= responseData['Predict'];
+
+
+        const response_c = await this.axios.get(
+                "http://127.0.0.1:5000/catagories/"+this.datasetName
+        );
+        // this.params.data = response.data;
+
+        console.log(this.datasetName)
+
+        var responseData_c = response_c.data;
+
+        console.log(responseData_c)
+
+
+        for(var i = 0; i < responseData_c['categories'].length; i++){
+          this.chartOptions.xaxis.categories.push(responseData_c['categories'][i]);
         }
 
-        this.series[1].name = responseData[1]['name'];
-
-        for(var j = 1; i < this.series[1]['data'].length; j++){
-          this.series[1].data.push(this.series[1]['data'][j])
-        }
+        // for(var i = 0; i < this.series[0]['data'].length; i++){
+        //   this.series[0].data.push(this.series[0]['data'][i])
+        // }
+        //
+        // this.series[1].name = responseData[1]['name'];
+        //
+        // for(var j = 1; i < this.series[1]['data'].length; j++){
+        //   this.series[1].data.push(this.series[1]['data'][j])
+        // }
 
         // this.series[1].name = "Predict";
         // this.series[1].data.push(989, 349, 290);
@@ -119,14 +149,25 @@ export default {
       }
     },
     async getCategories(){
-      // let formData = new FormData();
-      // formData.append('ds_name', this.datasetName);
-      // const response = await this.axios.get(
-      //     "http://localhost:3000/catagories/"+this.datasetName
-      // );
+
+      const response = await this.axios.get(
+          "http://127.0.0.1:5000/catagories/"+this.datasetName
+      );
       // this.params.data = response.data;
 
-      this.chartOptions.xaxis.categories.push('Against', 'For', 'Observing');
+      console.log(this.datasetName)
+
+      var responseData = response.data;
+
+      console.log(response.data)
+
+
+      for(var i = 0; i < responseData['categories'].length; i++){
+        this.chartOptions.xaxis.categories.push(responseData['categories'][i]);
+      }
+
+
+      // this.chartOptions.xaxis.categories.push('Against', 'For', 'Observing');
 
 
     }

@@ -44,23 +44,27 @@
     methods: {
       async update(){
         try{
-          // let formData = new FormData();
-          // formData.append('model', this.algoName);
-          // formData.append('ds_name', this.datasetName);
-          // formData.append('percent', this.train);
-          // const response = await this.axios.get(
-          //     "http://127.0.0.1:5000/statisticsTable"
-          // );
+          let formData = new FormData();
+          formData.append('model', this.algoName);
+          formData.append('ds_name', this.datasetName);
+          formData.append('percent',this.train);
+          const response = await this.axios.post(
+              "http://127.0.0.1:5000/statisticsTable",formData, {
+                    headers: {
+                      'Content-Type': 'multipart/form-data'
+                    }
+                  },
+          );
 
-          //this.params.data = response.data;
+          this.params.data = response.data['data'];
 
-          this.params.data = [
-            ['Label', 'Precision', 'Recall', 'F-Score', 'Support'],
-            ['AGAINST', '0.81', '0.58', '0.68', '989'],
-            ['FAVOR', '0.42', '0.60', '0.50', '349'],
-            ['NONE', '0.39', '0.56', '0.46', '290'],
-            ['TOTAL', '0.65', '0.58', '0.60', '1628']
-          ];
+          // this.params.data = [
+          //   ['Label', 'Precision', 'Recall', 'F-Score', 'Support'],
+          //   ['AGAINST', '0.81', '0.58', '0.68', '989'],
+          //   ['FAVOR', '0.42', '0.60', '0.50', '349'],
+          //   ['NONE', '0.39', '0.56', '0.46', '290'],
+          //   ['TOTAL', '0.65', '0.58', '0.60', '1628']
+          // ];
         } catch (error) {
           console.log(error);
         }

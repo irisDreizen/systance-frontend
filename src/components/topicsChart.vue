@@ -78,7 +78,7 @@ export default {
           data: null
         }, ];
 
-        this.series['data'] = responseData['data'];
+        this.series[0]['data'] = responseData['data'];
 
 
         // this.series = [{

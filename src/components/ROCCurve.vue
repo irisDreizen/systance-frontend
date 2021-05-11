@@ -85,38 +85,46 @@ export default {
   methods: {
     async update(){
       try{
-        // let formData = new FormData();
-        // formData.append('model', this.algoName);
-        // formData.append('ds_name', this.datasetName);
-        // formData.append('percent', this.train);
-        // const response = await this.axios.get(
-        //     "http://127.0.0.1:5000/tpr_fpr"
-        // );
+        let formData = new FormData();
+        formData.append('model', this.algoName);
+        formData.append('ds_name', this.datasetName);
+        formData.append('percent',this.train);
+        const response = await this.axios.post(
+            "http://127.0.0.1:5000/tpr_fpr",formData, {
+                  headers: {
+                    'Content-Type': 'multipart/form-data'
+                  }
+                },
+        );
 
-        //this.params.data = response.data;
+        console.log(response.data)
+
+
+
+        this.series = response.data;
 
         // add width and dash array
-        this.series = [{
-          name: "Against",
-          data: [[0,0],[0.04,0.69],[1,1]],
-          area: 0.82
-        },
-          {
-            name: "For",
-            data: [[0,0],[0.18,0.75],[1,1]],
-            area: 0.70
-          },
-          {
-            name: 'Observing',
-            data: [[0,0],[0.21,0.72],[1,1]],
-            area: 0.75
-          },
-          {
-            name: "Chance Line",
-            data: [[0,0],[1,1]],
-            area: 0
-          }
-        ];
+        // this.series = [{
+        //   name: "Against",
+        //   data: [[0,0],[0.04,0.69],[1,1]],
+        //   area: 0.82
+        // },
+        //   {
+        //     name: "For",
+        //     data: [[0,0],[0.18,0.75],[1,1]],
+        //     area: 0.70
+        //   },
+        //   {
+        //     name: 'Observing',
+        //     data: [[0,0],[0.21,0.72],[1,1]],
+        //     area: 0.75
+        //   },
+        //   {
+        //     name: "Chance Line",
+        //     data: [[0,0],[1,1]],
+        //     area: 0
+        //   }
+        // ];
 
 
       } catch (error) {

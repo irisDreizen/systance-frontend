@@ -42,22 +42,30 @@
     methods: {
       async update(){
         try{
-          // let formData = new FormData();
-          // formData.append('model', this.algoName);
-          // formData.append('ds_name', this.datasetName);
-          // formData.append('percent', this.train);
-          // const response = await this.axios.get(
-          //     "http://127.0.0.1:5000/confusionMatrix"
-          // );
+          let formData = new FormData();
+          formData.append('model', this.algoName);
+          formData.append('ds_name', this.datasetName);
+          formData.append('percent',this.train);
+          const response = await this.axios.post(
+              "http://127.0.0.1:5000/confusionMatrix",formData, {
+                    headers: {
+                      'Content-Type': 'multipart/form-data'
+                    }
+                  },
+          );
+
+
+
+          this.params.data=response.data['data']
 
           //this.params.data = response.data;
-          this.params.data = [
-            ['TRUE LABEL', '', '', ''],
-            ['AGAINST', '115', '18', '33'],
-            ['FAVOR', '12', '357', '104'],
-            ['NONE', '27', '85', '287'],
-            ['PREDICTED LABEL', 'AGAINST', 'FAVOR', 'NONE'],
-          ];
+          // this.params.data = [
+          //   ['TRUE LABEL', '', '', ''],
+          //   ['AGAINST', '115', '18', '33'],
+          //   ['FAVOR', '12', '357', '104'],
+          //   ['NONE', '27', '85', '287'],
+          //   ['PREDICTED LABEL', 'AGAINST', 'FAVOR', 'NONE'],
+          // ];
         } catch (error) {
           console.log(error);
         }
