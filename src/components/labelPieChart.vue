@@ -49,16 +49,18 @@ export default {
   methods: {
     async update(){
       try{
-        // let formData = new FormData();
-        // formData.append('ds_name', this.datasetName);
-        // const response = await this.axios.get(
-        //     "http://127.0.0.1:5000/labelPieChart" + ds_name
-        // );
+        const response = await this.axios.get(
+            "http://127.0.0.1:5000/labelPieChart" + this.datasetName
+        );
 
-        //this.params.data = response.data;
-        this.series.push(989, 349, 290);
+        var responseData = response.data;
 
-        this.chartOptions.labels.push('Against (989)', 'Favor (349)', 'None (290)');
+        this.series = responseData['series'];
+        this.chartOptions.labels = responseData['labels'];
+
+        // this.series.push(989, 349, 290);
+        //
+        // this.chartOptions.labels.push('Against (989)', 'Favor (349)', 'None (290)');
 
 
 
