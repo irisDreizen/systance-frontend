@@ -70,13 +70,16 @@ export default {
         );
         var responseData = response.data;
 
-        for(var i = 0; i < responseData['data'].length; i++){
-          this.series.push(responseData['data'][i])
-        }
-
         for(var i = 0; i < responseData['categories'].length; i++){
           this.chartOptions.xaxis.categories.push(responseData['categories'][i])
         }
+
+        this.series = [{
+          data: null
+        }, ];
+
+        this.series['data'] = responseData['data'];
+
 
         // this.series = [{
         //   data: [44, 55, 41, 17, 15]
