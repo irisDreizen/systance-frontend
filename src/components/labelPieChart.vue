@@ -50,13 +50,24 @@ export default {
     async update(){
       try{
         const response = await this.axios.get(
-            "http://127.0.0.1:5000/labelPieChart" + this.datasetName
+            "http://127.0.0.1:5000/labelPieChart/" + this.datasetName
         );
 
         var responseData = response.data;
 
-        this.series = responseData['series'];
-        this.chartOptions.labels = responseData['labels'];
+
+        console.log(responseData)
+
+        for(var i = 0; i < responseData['series'].length; i++){
+          this.series.push(responseData['series'][i]);
+
+        }
+
+        for(var j = 0; j < responseData['labels'].length; j++){
+          this.chartOptions.labels.push(responseData['labels'][j]);
+        }
+        // this.series.push(responseData['series'])
+        // this.chartOptions.labels.push(responseData['labels'])
 
         // this.series.push(989, 349, 290);
         //
