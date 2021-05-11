@@ -54,20 +54,23 @@ export default {
       }
     }
   },
-  mounted(){
+  created(){
     this.update();
   },
   methods: {
     async update(){
       try{
-        // let formData = new FormData();
-        // formData.append('ds_name', this.datasetName);
-        // const response = await this.axios.get(
-        //     "http://127.0.0.1:5000/get_positive_negative" + ds_name
-        // );
+        const response = await this.axios.get(
+            "http://127.0.0.1:5000/get_positive_negative/" + this.datasetName
+        );
 
-        //this.params.data = response.data;
-        this.series.push(63, 38, 12);
+        var responseData = response.data;
+
+        for(var i = 0; i < responseData['series'].length; i++){
+          this.series.push(responseData['series'][i])
+        }
+
+        //this.series.push(63, 38, 12);
 
       } catch (error) {
         console.log(error);

@@ -29,7 +29,7 @@ export default {
       tableData: [],
     }
   },
-  mounted(){
+  created(){
     this.update();
   },
   methods: {
@@ -40,42 +40,7 @@ export default {
         );
 
         var responseData = response.data;
-        console.log(responseData)
-        this.tableData=responseData['tableData']
-
-        // this.tableData = [
-        //   {
-        //     claim: null,
-        //     sentence: null,
-        //     stance: null,
-        //   },
-        //   {
-        //     claim: null,
-        //     sentence: null,
-        //     stance: null,
-        //   },
-        //   {
-        //     claim: null,
-        //     sentence: null,
-        //     stance: null,
-        //   },
-        //   {
-        //     claim: null,
-        //     sentence: null,
-        //     stance: null,
-        //   },
-        //   {
-        //     claim: null,
-        //     sentence: null,
-        //     stance: null,
-        //   },
-        // ];
-        //
-        // for(var i = 0; i < responseData.length; i++){
-        //   this.tableData[i].claim = responseData[i]["claim"];
-        //   this.tableData[i].sentence = responseData[i]["sentence"];
-        //   this.tableData[i].stance = responseData[i]["stance"];
-        // }
+        this.tableData=responseData['tableData'];
 
         // this.tableData = [
         //   {
