@@ -26,7 +26,7 @@ export default {
     return {
       datasetName: null,
       train: null,
-      results:[]
+      results:[],
     }
   },
   mounted(){
@@ -35,8 +35,10 @@ export default {
   methods: {
     async update(){
       try{
+        const id = this.$route.params.resultId;
+
         const response = await this.axios.get(
-            "http://127.0.0.1:5000/result/" +1
+            "http://127.0.0.1:5000/result/" + id
         );
         var response_data = response.data;
         this.datasetName = response_data[1]
