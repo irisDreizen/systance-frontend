@@ -7,8 +7,6 @@
       <h4 style="margin-top: 20px">Choose which algorithm you would like to view the results:</h4>
     </div>
     <br>
-    <br>
-
     <div class="vertical-center">
       <div v-for="r in results" :key="r.id" >
         <!--      <resultsPreview :algoName="r" :datasetName="datasetName" :train="train"/>-->

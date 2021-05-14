@@ -6,7 +6,7 @@
         <b-card-group deck class="card">
           <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" class="text-center">
             <b-card-title class="bg-info"> Information</b-card-title>
-            <b-card-text style="font-size: 20px"><b>Dataset: </b>{{datasetName}}, <b>Algorithm: </b>{{algoName}}</b-card-text>
+            <b-card-text style="font-size: 20px"><b>Dataset: </b>{{datasetName}} <br><b>Algorithm: </b>{{algoName}}</b-card-text>
           </b-card>
 
           <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" class="text-center">
