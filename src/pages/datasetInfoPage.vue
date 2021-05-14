@@ -3,19 +3,26 @@
   <h1 class="content_title">  {{datasetName}} Dataset Dashboard</h1>
   <div>
     <b-card-group deck class="card">
-      <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" header="Information" class="text-center">
-        <b-card-text>{{datasetInfo}}</b-card-text>
+      <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" class="text-center">
+        <b-card-title class="bg-info"> Information</b-card-title>
+        <b-card-text style="font-size: 20px">{{datasetInfo}}</b-card-text>
       </b-card>
 
-      <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" header="Number of records" class="text-center">
-        <b-card-text>{{numOfRecords}}</b-card-text>
+      <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" class="text-center">
+        <b-card-title class="bg-info"> Number of records</b-card-title>
+        <b-card-text style="font-size: 20px">{{numOfRecords}}</b-card-text>
+      </b-card>
+      <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" class="text-center">
+        <b-card-title class="bg-info">Label Distribution</b-card-title>
+        <labelPieChart :datasetName="datasetName"></labelPieChart>
       </b-card>
     </b-card-group>
   </div>
   <br>
   <div>
     <b-card-group deck>
-      <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" header="Data Sample (first 5 rows)" class="text-center">
+      <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" class="text-center">
+        <b-card-title class="bg-info">Data Sample (first 5 rows)</b-card-title>
         <data-sample-table :datasetName="datasetName" ></data-sample-table>
       </b-card>
     </b-card-group>
@@ -23,14 +30,14 @@
   <br>
   <div>
     <b-card-group deck>
-      <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" header="Label Distribution" class="text-center">
-        <labelPieChart :datasetName="datasetName"></labelPieChart>
-      </b-card>
 
-      <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" header="Topic Distribution" class="text-center">
+
+      <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" class="text-center">
+        <b-card-title class="bg-info">Topic Distribution</b-card-title>
         <topics-chart :datasetName="datasetName" :type="type"></topics-chart>
       </b-card>
-      <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" header="Sentiment Distribution" class="text-center">
+      <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" class="text-center">
+        <b-card-title class="bg-info">Sentiment Distribution</b-card-title>
         <sentiment-donut-chart :datasetName="datasetName" ></sentiment-donut-chart>
       </b-card>
 
@@ -99,13 +106,12 @@ export default {
     font-family: 'Bradley Hand', cursive;
     font-weight: bold;
     font-size: 50px;
+    margin-top: 18px;
+    margin-bottom: 18px;
   }
   .centered_content{
     margin: 20px;
     text-align: center;
-  }
-  .card {
-    background-color: rgba(0, 0, 0, 0.1);;
   }
 
 </style>

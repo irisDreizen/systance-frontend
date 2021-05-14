@@ -96,8 +96,14 @@ export default {
                   }
                 },
         );
-
         this.series = response.data;
+        console.log(this.series);
+
+        this.series.push({
+              name: "Chance Line",
+              data: [[0,0],[1,1]],
+              area: 0
+            })
 
         // this.series = [{
         //   name: "Against",

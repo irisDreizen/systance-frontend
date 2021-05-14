@@ -1,21 +1,25 @@
 <template>
   <div>
-    <div id="chart">
+    <div class="page" id="chart">
       <h1 class="content_title">Results Dashboard</h1>
       <div>
         <b-card-group deck class="card">
           <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" class="text-center">
-            <b-card-title style="background: aqua"> Info</b-card-title>
-            <b-card-text><b>Dataset: </b>{{datasetName}}, <b>Algorithm: </b>{{algoName}}</b-card-text>
+            <b-card-title class="bg-info"> Information</b-card-title>
+            <b-card-text style="font-size: 20px"><b>Dataset: </b>{{datasetName}}, <b>Algorithm: </b>{{algoName}}</b-card-text>
           </b-card>
 
-          <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" header="Accuracy" class="text-center">
-            <b-card-text>{{accuracy}}</b-card-text>
+          <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" class="text-center">
+            <b-card-title class="bg-info"> Accuracy</b-card-title>
+            <b-card-text style="font-size: 20px">{{accuracy}}</b-card-text>
           </b-card>
 
-          <b-card border-variant="info"  header-bg-variant="info" bg-variant="Light" text-variant="black" header="ROC-AUC Score" class="text-center">
-            <b-card-text>{{rocaucscore}}</b-card-text>
+          <b-card border-variant="info"  header-bg-variant="info" bg-variant="Light" text-variant="black" class="text-center">
+            <b-card-title class="bg-info"> ROC-AUC Score</b-card-title>
+            <b-card-text style="font-size: 20px">{{rocaucscore}}</b-card-text>
           </b-card>
+
+
         </b-card-group>
       </div>
     <br>
@@ -36,18 +40,26 @@
       <br>
       <div>
         <b-card-group deck>
-          <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" header="ROC Curve" class="text-center">
+          <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" class="text-center">
+            <b-card-title class="bg-info"> ROC Curve</b-card-title>
             <ROCCurve :algoName="algoName" :datasetName="datasetName" :train="train"></ROCCurve>
           </b-card>
 
-          <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" header="Actual vs Predict" class="text-center">
+          <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" class="text-center">
+            <b-card-title class="bg-info">Actual vs Predict</b-card-title>
             <actual-vs-predict :algoName="algoName" :datasetName="datasetName" :train="train"></actual-vs-predict>
           </b-card>
 
-          <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" header="Train vs Test" class="text-center">
-            <train-test-donut-chart :algoName="algoName" :datasetName="datasetName" :train="train"></train-test-donut-chart>
+
+        </b-card-group>
+        <br>
+        <b-card-group>
+          <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" class="text-center">
+            <b-card-title class="bg-info">Train vs Test</b-card-title>
+            <train-test-donut-chart :algoName="algoName" :datasetName="datasetName" :train="train" class="col d-flex justify-content-center"></train-test-donut-chart>
           </b-card>
         </b-card-group>
+
       </div>
     <br>
       <br>
@@ -123,12 +135,12 @@
     font-weight: bold;
     font-size: 50px;
     text-align: center;
+    margin-top: 18px;
+    margin-bottom: 18px;
   }
-  .card {
-    background-color: rgba(0, 0, 0, 0);;
-  }
-  .black {
-    background-color: black;
+  .page {
+    margin-left: 10px;
+    margin-right: 10px;
   }
 
 </style>

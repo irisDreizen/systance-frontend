@@ -1,23 +1,6 @@
 <template>
   <div>
-    <div class="centered_content">
-      <h1 style="margin-top: 20px" class="content_title">Results</h1>
-      <h3 style="margin-top: 20px"> <b>Dataset:</b> {{datasetName}}</h3>
-      <h3 style="margin-top: 20px"><b>Train Percent:</b> {{train}}</h3>
-      <h4 style="margin-top: 20px">Choose which algorithm you would like to view the results:</h4>
-    </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <div class="vertical-center">
-      <div v-for="r in results" :key="r.id" >
-        <!--      <resultsPreview :algoName="r" :datasetName="datasetName" :train="train"/>-->
-        <b-button v-on:click="sendToResults(r, datasetName, train)" pill variant="info" size="lg" style="margin-top: 20px">{{r}}</b-button>
-      </div>
-    </div>
-
-
+    <h1>About us: Iris, Chen, Adi and Gal</h1>
   </div>
 </template>
 
@@ -25,74 +8,10 @@
 
 export default {
   name: "about",
-  data: function() {
-    return {
-      datasetName: null,
-      train: null,
-      results:[],
-    }
-  },
-  mounted(){
-    this.update();
-  },
-  methods: {
-    async update(){
-      try{
-        const id = this.$route.params.resultId;
-        console.log("I am in results" + id);
-        const response = await this.axios.get(
-            "http://127.0.0.1:5000/result/" + id
-        );
-        var response_data = response.data;
-        this.datasetName = response_data[1]
-        this.train = response_data[2]
 
-        for(var i = 0; i < response_data[0].length; i++){
-          this.results.push(response_data[0][i]);
-        }
-
-
-        // this.datasetName = 'MPCHI';
-        // this.train = 70;
-        // this.results.push("UCLMR", "TAN", "SEN");
-
-
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    sendToResults(algoName, datasetName, train){
-      this.$router.push({
-        name: 'results',
-        params: { algoName: algoName, datasetName: datasetName, train: train }
-      });
-    }
-
-  }
 }
 </script>
 
 <style scoped>
-  .content_title {
-    font-family: 'Bradley Hand', cursive;
-    font-weight: bold;
-    font-size: 55px;
-  }
-  .centered_content{
-    margin: 20px;
-    text-align: center;
-    font-family: 'Bradley Hand', cursive;
-  }
-  .vertical-center {
-    margin-top: 50px;
-    position: absolute;
-    top: 50%;
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
-    text-align: center;
-    width: 100%;
-  }
-
-
 
 </style>

@@ -1,18 +1,19 @@
 <template>
+  <div class="background">
     <div class="centered_content">
         <div class="content_title">
             Comparing Algorithms
         </div>
         <br>
-        <span class="content_span">In this page, the magic happens!</span>
+        <span style="font-size: 20px" class="content_span">In this page, the magic happens!</span>
         <br>
         <br>
-        <span class="content_span">Here, you can choose a dataset which we provide you, or add your own one, and choose several algorithms to run with it.</span>
+        <span style="font-size: 20px" class="content_span">Here, you can choose a dataset which we provide you, or add your own one, and choose several algorithms to run with it.</span>
         <br>
-        <span class="content_span">If you would like more information about the datasets or the algorithms, you can click the info button.</span>
+        <span style="font-size: 20px" class="content_span">If you would like more information about the datasets or the algorithms, you can click the info button.</span>
         <br>
         <br>
-        <span class="content_span">Please notice that some of the algorithms may take a long time to run, so we highly recommend that you enter your email at the bottom of the page, and we will send you an email as soon as the algorithms will finish running.</span>
+        <span style="font-size: 20px" class="content_span">Please notice that some of the algorithms may take a long time to run, so we highly recommend that you enter your email at the bottom of the page, and we will send you an email as soon as the algorithms will finish running.</span>
         <br>
         <br>
         <div class="mt-3">
@@ -21,7 +22,7 @@
                     <div class="form-group">
                         <div v-for="(dataset,index) in datasets" :key="index">
                             <input name="status"  type="radio" :value="dataset" v-model="chosenDataset" :disabled="chooseOwnFile"/> {{dataset}}
-                            <b-icon icon="exclamation-circle-fill" variant="warning" style="margin-left: 10px" v-b-tooltip="'click for more statistic of the data'" v-on:click="moveToDatasetPage(dataset)"></b-icon>
+                            <b-icon icon="exclamation-circle-fill" variant="warning" style="margin-left: 10px" v-b-tooltip="'click for more information and statistics of the data'" v-on:click="moveToDatasetPage(dataset)"></b-icon>
                             <br/>
                         </div>
                     </div>
@@ -65,7 +66,7 @@
                         <label>
                             {{ algorithm}}
                         </label>
-                        <b-icon icon="exclamation-circle-fill" variant="warning" style="margin-left: 10px" v-b-tooltip="'click for more information about of the algorithm'" v-on:click="openModal(algorithm)"></b-icon>
+                        <b-icon icon="exclamation-circle-fill" variant="warning" style="margin-left: 10px" v-b-tooltip="'click for more information about the algorithm'" v-on:click="openModal(algorithm)"></b-icon>
                     </div>
                 </b-card>
 
@@ -110,6 +111,7 @@
         <b-alert fade dismissible variant="danger" :show="showDismissibleAlert_backendError" @dismissed="showDismissibleAlert_backendErrorl=false" >{{backendErrorText}}</b-alert>
 
     </div>
+  </div>
 </template>
 
 <script>
@@ -302,7 +304,6 @@
         font-weight: bold;
     }
     .centered_content{
-        margin: 50px;
         text-align: center;
     }
     .centered_element{
@@ -322,5 +323,20 @@
         font-family: 'Bradley Hand', cursive;
         font-weight: bold;
         font-size: 40px;
+    }
+    .background{
+
+      background: url("../assets/network.png");
+      background-size: cover;
+      background-position: center;
+      min-height: 100%;
+      min-width: 1024px;
+
+      /* Set up proportionate scaling */
+      width: 100%;
+      height: auto;
+
+      /* Set up positioning */
+
     }
 </style>

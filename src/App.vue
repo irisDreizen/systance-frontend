@@ -10,9 +10,6 @@
                   <b-nav-item>
                     <router-link :to="{ name: 'about' }">About</router-link>
                   </b-nav-item>
-                <b-nav-item
-                ><router-link :to="{ name: 'datasetInfo' }">Dataset Info</router-link>
-                </b-nav-item>
               </b-navbar-nav>
 
               <!-- Right aligned nav items -->
@@ -65,7 +62,7 @@ footer {
     width:100%;
     height:60px;   /* Height of the footer */
     /*background:#6cf;*/
-},
+}
 .header{
     position: fixed
 }
