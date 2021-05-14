@@ -4,7 +4,8 @@
       <h1 class="content_title">Results Dashboard</h1>
       <div>
         <b-card-group deck class="card">
-          <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" header="Info" class="text-center">
+          <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" class="text-center">
+            <b-card-title style="background: aqua"> Info</b-card-title>
             <b-card-text><b>Dataset: </b>{{datasetName}}, <b>Algorithm: </b>{{algoName}}</b-card-text>
           </b-card>
 
@@ -20,11 +21,13 @@
     <br>
       <div>
         <b-card-group deck>
-          <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" header="Statistics" class="text-center">
+          <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" class="text-center">
+            <b-card-title class="bg-info"> Statistics</b-card-title>
             <StatisticsTable :algoName="algoName" :datasetName="datasetName" :train="train"></StatisticsTable>
           </b-card>
 
-          <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" header="Confusion Matrix" class="text-center">
+          <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" class="text-center">
+            <b-card-title class="bg-info"> Confusion Matrix</b-card-title>
             <ConfusionMatrix :algoName="algoName" :datasetName="datasetName" :train="train"></ConfusionMatrix>
           </b-card>
 
@@ -122,7 +125,7 @@
     text-align: center;
   }
   .card {
-    background-color: rgba(0, 0, 0, 0.1);;
+    background-color: rgba(0, 0, 0, 0);;
   }
   .black {
     background-color: black;

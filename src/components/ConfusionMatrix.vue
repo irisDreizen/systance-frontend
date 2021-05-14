@@ -32,7 +32,8 @@
           border: true,
           stripe: false,
           highlight: { row: [0, -1], column: [0] },
-         highlightedColor: 'rgb(153, 204, 255)'
+          columnWidth: [{column: 0, width: 140}],
+          highlightedColor: 'rgb(153, 204, 255)'
         }
       }
     },

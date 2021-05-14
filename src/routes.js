@@ -34,7 +34,7 @@ const routes = [
     {
         path: "/resultsPreview/:resultId",
         name: "resultsPreview",
-        component: () => import("./pages/resultsPreviewPage"),
+        component: () => import("./pages/aboutPage"),
     },
     {
         path: "/results/",

@@ -1,27 +1,30 @@
 <template>
   <div>
     <div class="centered_content">
-      <h1 class="content_title">Results</h1>
-      <h3> <b>Dataset:</b> {{datasetName}}</h3>
-      <h3><b>Train Percent:</b> {{train}}</h3>
-      <h4>Choose which algorithm you would like to view the results:</h4>
+      <h1 style="margin-top: 20px" class="content_title">Results</h1>
+      <h3 style="margin-top: 20px"> <b>Dataset:</b> {{datasetName}}</h3>
+      <h3 style="margin-top: 20px"><b>Train Percent:</b> {{train}}</h3>
+      <h4 style="margin-top: 20px">Choose which algorithm you would like to view the results:</h4>
     </div>
-    <div v-for="r in results" :key="r.id">
-      <resultsPreview :algoName="r" :datasetName="datasetName" :train="train"/>
-      <br />
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="vertical-center">
+      <div v-for="r in results" :key="r.id" >
+        <!--      <resultsPreview :algoName="r" :datasetName="datasetName" :train="train"/>-->
+        <b-button v-on:click="sendToResults(r, datasetName, train)" pill variant="info" size="lg" style="margin-top: 20px">{{r}}</b-button>
+      </div>
     </div>
+
 
   </div>
 </template>
 
 <script>
-import resultsPreview from "../components/resultsPreview";
 
 export default {
   name: "about",
-  components:{
-    resultsPreview
-  },
   data: function() {
     return {
       datasetName: null,
@@ -36,7 +39,7 @@ export default {
     async update(){
       try{
         const id = this.$route.params.resultId;
-
+        console.log("I am in results" + id);
         const response = await this.axios.get(
             "http://127.0.0.1:5000/result/" + id
         );
@@ -57,7 +60,14 @@ export default {
       } catch (error) {
         console.log(error);
       }
+    },
+    sendToResults(algoName, datasetName, train){
+      this.$router.push({
+        name: 'results',
+        params: { algoName: algoName, datasetName: datasetName, train: train }
+      });
     }
+
   }
 }
 </script>
@@ -73,5 +83,16 @@ export default {
     text-align: center;
     font-family: 'Bradley Hand', cursive;
   }
+  .vertical-center {
+    margin-top: 50px;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    text-align: center;
+    width: 100%;
+  }
+
+
 
 </style>

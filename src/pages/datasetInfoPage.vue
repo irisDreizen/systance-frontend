@@ -69,8 +69,8 @@ export default {
   methods: {
     async created() {
       try {
-        //this.datasetName = this.$route.params.datasetName;
-        this.datasetName = "MPCHI";
+        this.datasetName = this.$route.params.datasetName;
+        //this.datasetName = "MPCHI";
 
         const response = await this.axios.get(
                 "http://127.0.0.1:5000/dataSetInfo/"+ this.datasetName
