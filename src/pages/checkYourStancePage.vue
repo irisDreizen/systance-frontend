@@ -9,7 +9,7 @@
             <b-form-select v-model="chosenTopic" :options="options" aria-placeholder="Choose a topic"></b-form-select>
         </div>
         <div class="centered_element">
-            <b-form-input v-model="text" placeholder="Enter your stance"></b-form-input>
+            <b-form-input style="text-align: center" v-model="text" placeholder="Enter your stance"></b-form-input>
         </div>
         <b-button pill variant="info" size="md" style="margin-top: 20px" v-on:click="checkStance">Check My Stance!</b-button>
         <br>
@@ -80,10 +80,10 @@
         margin: 30px;
     }
     .centered_element{
-        margin-left: 18%;
+        /*margin-left: 18%;*/
         margin-top: 20px;
-        text-align: center;
-        width: 600px;
+        /*text-align: center;*/
+        /*width: 600px;*/
     }
 
 </style>

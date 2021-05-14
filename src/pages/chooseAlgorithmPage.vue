@@ -84,7 +84,10 @@
         </div>
 
         <br>
-        <b-form-input v-model="trainPercent" id="input-small" size="md" placeholder="Enter train data percent" class="centered_input"></b-form-input>
+        <span style="margin-top: 50px">Enter train data percent (number between 1 to 100):</span>
+        <br>
+        <br>
+        <b-form-input v-model="trainPercent" id="input-small" size="md" placeholder="Train data percent" class="centered_input"></b-form-input>
         <br>
         <b-form-checkbox v-model="chooseEmailFile">
             I would like to receive an email when the run has completed
@@ -101,8 +104,9 @@
         <b-button pill variant="info" size="md" style="margin-top: 20px" v-on:click="runModels">Run and compare!</b-button>
         <br>
         <br>
-        <b-alert fade dismissible variant="primary" :show="showDismissibleAlert" @dismissed="showDismissibleAlert=false" >You have to mark at least on algorithm and one dataset</b-alert>
-        <b-alert fade dismissible variant="primary" :show="showDismissibleAlert_email" @dismissed="showDismissibleAlert_email=false" >Please enter a valid email</b-alert>
+        <b-alert fade dismissible variant="primary" :show="showDismissibleAlert" @dismissed="showDismissibleAlert=false">You have to mark at least on algorithm and one dataset</b-alert>
+        <b-alert fade dismissible variant="primary" :show="showDismissibleAlert_email" @dismissed="showDismissibleAlert_email=false">Please enter a valid email</b-alert>
+        <b-alert fade dismissible variant="primary" :show="showDismissibleAlert_trainPercent" @dismissed="showDismissibleAlert_trainPercent=false">Train percent must be in range of 1-100</b-alert>
         <b-alert fade dismissible variant="danger" :show="showDismissibleAlert_backendError" @dismissed="showDismissibleAlert_backendErrorl=false" >{{backendErrorText}}</b-alert>
 
     </div>
@@ -136,9 +140,11 @@
                 showDismissibleAlert: false,
                 showDismissibleAlert_email: false,
                 showDismissibleAlert_backendError: false,
+                showDismissibleAlert_trainPercent:false,
                 modalAlgorithmData:'',
                 modalAlgorithmInfo:'',
-                backendErrorText:''
+                backendErrorText:'',
+
             }
 
         },
@@ -186,11 +192,15 @@
                     this.showDismissibleAlert_email = true
                 } else if (this.chooseOwnFile && this.chosenFileType === '') {
                     this.showDismissibleAlert = true
-                } else if (!this.chooseOwnFile) {
-                    response = await this.runModels_ourDataset()
+                }
+                else if(!this.checkInputNumber(this.trainPercent)){
+                    this.showDismissibleAlert_trainPercent = true
+                }
+                else if (!this.chooseOwnFile) {
+                    response = await this.runModels_ourDataset();
                     id = response.data;
                 } else {
-                    response = await this.runModels_ownFile()
+                    response = await this.runModels_ownFile();
                     id = response.data;
                 }
                 if (response.status === 501) {
@@ -271,6 +281,13 @@
                     algorithmsArray_string = algorithmsArray_string + algorithmsArray[j] + ","
                 }
                 return algorithmsArray_string;
+            },
+            checkInputNumber(number){
+                if(isNaN(number)){
+                    return false;
+                }
+                return number >= 1 && number <= 100;
+
             }
 
 
