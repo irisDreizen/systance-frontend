@@ -10,9 +10,6 @@
                   <b-nav-item>
                     <router-link :to="{ name: 'about' }">About</router-link>
                   </b-nav-item>
-                  <b-nav-item
-                    ><router-link :to="{ name: 'results' }">Results</router-link>
-                  </b-nav-item>
                 <b-nav-item
                 ><router-link :to="{ name: 'datasetInfo' }">Dataset Info</router-link>
                 </b-nav-item>

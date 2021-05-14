@@ -24,7 +24,7 @@ export default {
       required: true
     },
     train: {
-      type: String,
+      type: Number,
       required: true
     },
   },
@@ -43,9 +43,9 @@ export default {
           enabled: true
         },
         stroke: {
-          width: [5, 5, 5, 3],
+          width: [],
           curve: 'straight',
-          dashArray: [0, 0, 0, 10]
+          dashArray: []
         },
         title: {
           text: 'ROC Curve',
@@ -97,13 +97,8 @@ export default {
                 },
         );
 
-        console.log(response.data)
-
-
-
         this.series = response.data;
 
-        // add width and dash array
         // this.series = [{
         //   name: "Against",
         //   data: [[0,0],[0.04,0.69],[1,1]],
@@ -125,7 +120,16 @@ export default {
         //     area: 0
         //   }
         // ];
+        var numOfLabels = this.series.length - 1;
+        var counter = 0;
 
+        while(counter < numOfLabels){
+          this.chartOptions.stroke.width.push(5);
+          this.chartOptions.stroke.dashArray.push(0);
+          counter++;
+        }
+        this.chartOptions.stroke.width.push(3);
+        this.chartOptions.stroke.dashArray.push(10);
 
       } catch (error) {
         console.log(error);

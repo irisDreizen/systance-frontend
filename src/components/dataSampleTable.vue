@@ -40,7 +40,7 @@ export default {
         );
 
         var responseData = response.data;
-        this.tableData=responseData['tableData'];
+        this.tableData = responseData['tableData'];
 
         // this.tableData = [
         //   {

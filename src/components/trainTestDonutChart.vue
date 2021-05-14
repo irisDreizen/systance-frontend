@@ -15,8 +15,16 @@ export default {
     apexchart: VueApexCharts,
   },
   props: {
+    algoName: {
+      type: String,
+      required: true
+    },
     datasetName: {
       type: String,
+      required: true
+    },
+    train: {
+      type: Number,
       required: true
     },
   },
@@ -61,26 +69,24 @@ export default {
     async update(){
       try{
         let formData = new FormData();
-        formData.append('model', 'UCLMR');
+        formData.append('model', this.algoName);
         formData.append('ds_name', this.datasetName);
-        formData.append('percent',70);
-        // const response = await this.axios.post(
-        //     "http://127.0.0.1:5000/train_test_records",formData, {
-        //           headers: {
-        //             'Content-Type': 'multipart/form-data'
-        //           }
-        //         },
-        // );
+        formData.append('percent',this.train);
+        const response = await this.axios.post(
+            "http://127.0.0.1:5000/train_test_records",formData, {
+                  headers: {
+                    'Content-Type': 'multipart/form-data'
+                  }
+                },
+        );
 
-        // this.series.push(1073, 460);
+        var responseData = response.data;
 
-        // var responseData = response.data;
-        //
-        // console.log(responseData)
-        // for(var i = 0; i < responseData['series'].length; i++){
-        //   this.series.push(responseData['series'][i]);
-        // }
+        for(var i = 0; i < responseData['series'].length; i++){
+          this.series.push(responseData['series'][i]);
+        }
 
+        //this.series.push(1073, 460);
 
       } catch (error) {
         console.log(error);

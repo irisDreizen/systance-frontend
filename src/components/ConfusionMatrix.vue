@@ -20,7 +20,7 @@
         required: true
       },
       train: {
-        type: String,
+        type: Number,
         required: true
       },
     },
@@ -54,11 +54,8 @@
                   },
           );
 
-
-
           this.params.data=response.data['data']
 
-          //this.params.data = response.data;
           // this.params.data = [
           //   ['TRUE LABEL', '', '', ''],
           //   ['AGAINST', '115', '18', '33'],

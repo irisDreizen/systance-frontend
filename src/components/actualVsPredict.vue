@@ -24,7 +24,7 @@ export default {
       required: true
     },
     train: {
-      type: String,
+      type: Number,
       required: true
     },
   },
@@ -85,10 +85,7 @@ export default {
                 },
         );
 
-
         var responseData = response.data;
-
-        console.log(responseData)
 
 
         this.series = [{
@@ -106,44 +103,19 @@ export default {
         this.series[1].name= 'Predict';
         this.series[1].data= responseData[0]['Predict'];
 
-        //
-        // const response_c = await this.axios.get(
-        //         "http://127.0.0.1:5000/catagories/"+this.datasetName
-        // );
-        // // this.params.data = response.data;
-        //
-        // console.log(this.datasetName)
-        //
-        // var responseData_c = responseData['']
-        //
-        // console.log(responseData_c['categories'])
-
 
         for(var i = 0; i < responseData[1]['categories'].length; i++){
           this.chartOptions.xaxis.categories.push(responseData[1]['categories'][i]);
         }
 
-        console.log(this.chartOptions.xaxis.categories)
-
-        // for(var i = 0; i < this.series[0]['data'].length; i++){
-        //   this.series[0].data.push(this.series[0]['data'][i])
-        // }
-        //
-        // this.series[1].name = responseData[1]['name'];
-        //
-        // for(var j = 1; i < this.series[1]['data'].length; j++){
-        //   this.series[1].data.push(this.series[1]['data'][j])
-        // }
-
-        // this.series[1].name = "Predict";
-        // this.series[1].data.push(989, 349, 290);
 
         // this.series[0].name = "Actual";
         // this.series[0].data.push(1002,280,346);
         //
         // this.series[1].name = "Predict";
         // this.series[1].data.push(989, 349, 290);
-
+        //
+        // this.chartOptions.xaxis.categories.push("AGAINST", "FAVOR", "NONE");
 
       } catch (error) {
         console.log(error);

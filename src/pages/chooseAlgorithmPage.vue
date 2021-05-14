@@ -7,12 +7,12 @@
         <span class="content_span">In this page, the magic happens!</span>
         <br>
         <br>
-        <span class="content_span">Here, you can choose a dataset which we provide you, or your own one, and choose several algorithms to run on it.</span>
+        <span class="content_span">Here, you can choose a dataset which we provide you, or add your own one, and choose several algorithms to run with it.</span>
         <br>
-        <span class="content_span">If you need more information about the datasets or the algorithms, you can click the info button.</span>
+        <span class="content_span">If you would like more information about the datasets or the algorithms, you can click the info button.</span>
         <br>
         <br>
-        <span class="content_span">Please notice that some of the algorithms may take a long running time, so we highly recommend to enter your email at the buttom of the page, and we will send you a meassage as soon as the algorithms will finish running.</span>
+        <span class="content_span">Please notice that some of the algorithms may take a long time to run, so we highly recommend that you enter your email at the bottom of the page, and we will send you an email as soon as the algorithms will finish running.</span>
         <br>
         <br>
         <div class="mt-3">
@@ -33,7 +33,7 @@
                     </b-form-checkbox>
                     <div v-show="chooseOwnFile">
                         <br>
-                        <span>Please notice that you have to add CSV file with the the exactly columns names: Claim, Sentence, Stance (first letter in upper case), otherwise the program won't run.</span>
+                        <span>Please notice that you have to add a CSV file with the the exact following columns names: Claim, Sentence, Stance (first letter in upper case), otherwise the program won't run.</span>
                         <br>
                         <br>
                             <b-form-file
@@ -87,7 +87,7 @@
         <b-form-input v-model="trainPercent" id="input-small" size="md" placeholder="Enter train data percent" class="centered_input"></b-form-input>
         <br>
         <b-form-checkbox v-model="chooseEmailFile">
-            I would like to receive an email when running is completed
+            I would like to receive an email when the run has completed
         </b-form-checkbox>
         <br>
         <div class="centered_input">
@@ -121,8 +121,8 @@
                     'dataset1','dataset2', 'dataset3'
                 ],
                 fileTypes:[
-                    {value:'topic_based', text: 'topic based', info: 'Topic based dataset mean that you whould like to check a stance regarding to specific topic. An example for a topic might be Donald Trump'},
-                    {value: 'headline_based', text: 'headline based', info: 'Headline based dataset means that you you have a headline, and you would like to find out what the stance of the headline regarding to another text(article for example)' }],
+                    {value:'topic_based', text: 'topic based', info: 'Topic based dataset means that you would like to check a stance regarding to a specific topic (or several topics). An example for a topic might be Donald Trump'},
+                    {value: 'headline_based', text: 'headline based', info: 'Headline based dataset means that your data was taken from articles and includes headlines and text/body, and you would like to find out what the stance of the headline is.' }],
                 chosenFileType:'',
                 text:'',
                 chosenDataset:'',

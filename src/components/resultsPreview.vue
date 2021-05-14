@@ -28,7 +28,7 @@ export default {
       required: true
     },
     train: {
-      type: String,
+      type: Number,
       required: true
     },
   }

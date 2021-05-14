@@ -1,7 +1,10 @@
 <template>
   <div>
     <div id="chart">
-      <apexchart type="bar" height="350" :options="chartOptions" :series="series"></apexchart>
+      <apexchart v-if="type=='topic'" type="bar" height="350" :options="chartOptions" :series="series"></apexchart>
+      <div v-else>
+        <p>This dataset is not topic based, it is headline based. That means that the data was taken from articles, and the dataset includes article headlines and article bodies. Topic based datasets are mainly tweets from Twitter that all discuss a specific topic.</p>
+      </div>
     </div>
   </div>
 </template>
@@ -16,6 +19,10 @@ export default {
   },
   props: {
     datasetName: {
+      type: String,
+      required: true
+    },
+    type: {
       type: String,
       required: true
     },
