@@ -210,7 +210,7 @@
                         this.$router.push({name: 'thanks'});
                     } else {
                         this.$router.push({
-                            name: 'results',
+                            name: 'resultsPreview',
                             params: {resultId: id}
                         });
                     }
