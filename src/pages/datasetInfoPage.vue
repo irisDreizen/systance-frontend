@@ -83,14 +83,15 @@ export default {
                 "http://127.0.0.1:5000/dataSetInfo/"+ this.datasetName
         );
 
-        var response_data=response.data;
-        this.datasetInfo=response_data['datasetInfo']
-        this.numOfRecords=response_data['numOfRecords']
-
+        var response_data = response.data;
+        this.datasetInfo = response_data['datasetInfo']
+        this.numOfRecords = response_data['numOfRecords']
+        this.type = response_data['type']
+        console.log(this.type)
         // this.datasetInfo = "This dataset contains health-related online news articles. The data provided contains" +
         //     " instances of: tweets, id, target and stance,\n\n where stance is one of  the following: favor, against, none.";
         // this.numOfRecords = 1553;
-        this.type = "topic";
+        //this.type = "topic";
 
 
       } catch (error) {
