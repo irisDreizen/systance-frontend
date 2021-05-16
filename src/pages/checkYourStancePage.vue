@@ -16,6 +16,8 @@
         <br>
         <b-alert fade dismissible variant="primary" :show="showDismissibleAlert" @dismissed="showDismissibleAlert=false">You should enter both topic and stance</b-alert>
         <span class="content_span" v-show="showStance">Your stance is: {{this.stance}}</span>
+      <img src="../assets/stance.png" alt="Italian Trulli" width="520" height="257">
+
     </div>
 </template>
 
@@ -73,8 +75,8 @@
         margin: 60px;
     }
     .centered_content{
-        margin: 50px;
         text-align: center;
+        background-color: lightgrey;
     }
     .select_topic{
         margin: 30px;
@@ -84,6 +86,9 @@
         margin-top: 20px;
         /*text-align: center;*/
         /*width: 600px;*/
+    }
+    .pic{
+      background: url("../assets/stance.png");
     }
 
 </style>
