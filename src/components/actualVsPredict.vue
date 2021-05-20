@@ -96,16 +96,16 @@ export default {
           data: []
         }];
 
-        this.series[0].name= 'Actual';
+        this.series[0].name= 'ACTUAL';
         this.series[0].data= responseData[0]['Actual'];
 
 
-        this.series[1].name= 'Predict';
+        this.series[1].name= 'PREDICT';
         this.series[1].data= responseData[0]['Predict'];
 
 
         for(var i = 0; i < responseData[1]['categories'].length; i++){
-          this.chartOptions.xaxis.categories.push(responseData[1]['categories'][i]);
+          this.chartOptions.xaxis.categories.push(responseData[1]['categories'][i].toUpperCase());
         }
 
 

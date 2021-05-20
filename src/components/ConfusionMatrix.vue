@@ -31,7 +31,7 @@
           data: null,
           border: true,
           stripe: false,
-          highlight: { row: [0, -1], column: [0] },
+          highlight: { row: [0], column: [0] },
           columnWidth: [{column: 0, width: 140}],
           highlightedColor: 'rgb(153, 204, 255)'
         }

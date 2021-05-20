@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="background">
         <div class="main-header" style="position: relative">
 <!--            <img src="../assets/network.jpg" alt="Network">-->
             <div class="centered">
@@ -73,6 +73,12 @@
     }
     .content_buttons{
         margin: 50px;
+    }
+    .background{
+      margin: auto;
+      width: auto;
+      height: 680px;
+      background-color: lightgrey;
     }
 
 </style>

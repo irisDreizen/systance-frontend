@@ -77,6 +77,9 @@
     .centered_content{
         text-align: center;
         background-color: lightgrey;
+        margin: auto;
+        width: auto;
+        height: 680px;
     }
     .select_topic{
         margin: 30px;

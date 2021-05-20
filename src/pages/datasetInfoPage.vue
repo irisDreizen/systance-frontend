@@ -1,20 +1,16 @@
 <template>
 <div class="centered_content">
-  <h1 class="content_title">  {{datasetName}} Dataset Dashboard</h1>
+  <h1 class="content_title">{{datasetName}} DATASET DASHBOARD</h1>
   <div>
     <b-card-group deck class="card">
       <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" class="text-center">
-        <b-card-title class="bg-info"> Information</b-card-title>
-        <b-card-text style="font-size: 20px">{{datasetInfo}}</b-card-text>
+        <b-card-title class="bg-info">INFORMATION</b-card-title>
+        <b-card-text style="font-size: 20px">{{datasetInfo}} <br><br> Number of records: {{numOfRecords}}</b-card-text>
       </b-card>
 
       <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" class="text-center">
-        <b-card-title class="bg-info"> Number of records</b-card-title>
-        <b-card-text style="font-size: 20px">{{numOfRecords}}</b-card-text>
-      </b-card>
-      <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" class="text-center">
-        <b-card-title class="bg-info">Label Distribution</b-card-title>
-        <labelPieChart :datasetName="datasetName"></labelPieChart>
+        <b-card-title class="bg-info">LABEL DISTRIBUTION</b-card-title>
+          <labelPieChart class="container" :datasetName="datasetName"></labelPieChart>
       </b-card>
     </b-card-group>
   </div>
@@ -22,7 +18,7 @@
   <div>
     <b-card-group deck>
       <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" class="text-center">
-        <b-card-title class="bg-info">Data Sample (first 5 rows)</b-card-title>
+        <b-card-title class="bg-info">DATA SAMPLE</b-card-title>
         <data-sample-table :datasetName="datasetName" ></data-sample-table>
       </b-card>
     </b-card-group>
@@ -33,12 +29,14 @@
 
 
       <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" class="text-center">
-        <b-card-title class="bg-info">Topic Distribution</b-card-title>
-        <topics-chart :datasetName="datasetName" :type="type"></topics-chart>
+        <b-card-title class="bg-info">TOPIC DISTRIBUTION</b-card-title>
+        <topics-chart style="align: center" :datasetName="datasetName" :type="type"></topics-chart>
       </b-card>
       <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" class="text-center">
-        <b-card-title class="bg-info">Sentiment Distribution</b-card-title>
-        <sentiment-donut-chart :datasetName="datasetName" ></sentiment-donut-chart>
+        <b-card-title class="bg-info">SENTIMENT DISTRIBUTION</b-card-title>
+        <br>
+        <br>
+        <sentiment-donut-chart  class="container" :datasetName="datasetName" ></sentiment-donut-chart>
       </b-card>
 
     </b-card-group>
@@ -82,12 +80,14 @@ export default {
         const response = await this.axios.get(
                 "http://127.0.0.1:5000/dataSetInfo/"+ this.datasetName
         );
-
+        this.datasetName = this.datasetName.toUpperCase()
         var response_data = response.data;
         this.datasetInfo = response_data['datasetInfo']
         this.numOfRecords = response_data['numOfRecords']
         this.type = response_data['type']
-        console.log(this.type)
+
+
+
         // this.datasetInfo = "This dataset contains health-related online news articles. The data provided contains" +
         //     " instances of: tweets, id, target and stance,\n\n where stance is one of  the following: favor, against, none.";
         // this.numOfRecords = 1553;
@@ -113,6 +113,10 @@ export default {
   .centered_content{
     margin: 20px;
     text-align: center;
+  }
+  .container {
+    display: flex;
+    justify-content: center;
   }
 
 </style>

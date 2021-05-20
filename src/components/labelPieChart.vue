@@ -60,7 +60,7 @@ export default {
         }
 
         for(var j = 0; j < responseData['labels'].length; j++){
-          this.chartOptions.labels.push(responseData['labels'][j]);
+          this.chartOptions.labels.push(responseData['labels'][j].toUpperCase());
         }
 
         // this.series.push(989, 349, 290);

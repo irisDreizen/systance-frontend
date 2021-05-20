@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="chart">
-      <apexchart type="donut" width="380" :options="chartOptions" :series="series"></apexchart>
+      <apexchart type="donut" width="500" :options="chartOptions" :series="series"></apexchart>
     </div>
   </div>
 </template>
@@ -60,17 +60,17 @@ export default {
   methods: {
     async update(){
       try{
-        const response = await this.axios.get(
-            "http://127.0.0.1:5000/get_positive_negative/" + this.datasetName
-        );
+        // const response = await this.axios.get(
+        //     "http://127.0.0.1:5000/get_positive_negative/" + this.datasetName
+        // );
+        //
+        // var responseData = response.data;
+        //
+        // for(var i = 0; i < responseData['series'].length; i++){
+        //   this.series.push(responseData['series'][i])
+        // }
 
-        var responseData = response.data;
-
-        for(var i = 0; i < responseData['series'].length; i++){
-          this.series.push(responseData['series'][i])
-        }
-
-        //this.series.push(63, 38, 12);
+        this.series.push(63, 38, 12);
 
       } catch (error) {
         console.log(error);

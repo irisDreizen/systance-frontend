@@ -1,9 +1,9 @@
 <template>
   <div id="chart">
+<!--    <div v-for="i in series" :key="i">-->
+<!--      <p v-if="i.area>0">Area = {{i.area}} for label {{i.name}}</p>-->
+<!--    </div>-->
     <apexchart type="line" height="350" :options="chartOptions" :series="series"></apexchart>
-    <div v-for="i in series" :key="i">
-      <p v-if="i.area>0">area = {{i.area}} for label {{i.name}}</p>
-    </div>
   </div>
 </template>
 
@@ -46,10 +46,6 @@ export default {
           width: [],
           curve: 'straight',
           dashArray: []
-        },
-        title: {
-          text: 'ROC Curve',
-          align: 'left'
         },
         legend: {
           tooltipHoverFormatter: function (val, opts) {
@@ -100,7 +96,7 @@ export default {
         console.log(this.series);
 
         this.series.push({
-              name: "Chance Line",
+              name: "CHANCE LINE <br> Area=0.67",
               data: [[0,0],[1,1]],
               area: 0
             })
