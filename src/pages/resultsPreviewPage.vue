@@ -1,7 +1,7 @@
 <template>
   <div class="background">
     <div class="centered_content">
-      <h1 style="margin-top: 20px" class="content_title">Results</h1>
+      <h1 style="margin-top: 20px" class="content_title">RESULTS</h1>
       <h3 style="margin-top: 20px"> <b>Dataset:</b> {{datasetName}}</h3>
       <h3 style="margin-top: 20px"><b>Train Percent:</b> {{train}}</h3>
       <h4 style="margin-top: 20px">Choose which algorithm you would like to view the results:</h4>

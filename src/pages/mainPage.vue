@@ -1,5 +1,5 @@
 <template>
-    <div class="background">
+    <div>
         <div class="main-header" style="position: relative">
 <!--            <img src="../assets/network.jpg" alt="Network">-->
             <div class="centered">
