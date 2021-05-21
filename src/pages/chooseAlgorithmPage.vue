@@ -18,7 +18,7 @@
         <br>
         <div class="mt-3">
             <b-card-group deck>
-                <b-card bg-variant="primary" text-variant="white" header="CHOOSE A DATASET" class="text-center">
+                <b-card bg-variant="Light" text-variant="white" header="CHOOSE A DATASET" class="card">
                     <div class="form-group">
                         <div v-for="(dataset,index) in datasets" :key="index">
                             <input name="status"  type="radio" :value="dataset" v-model="chosenDataset" :disabled="chooseOwnFile"/> {{dataset}}
@@ -56,7 +56,7 @@
 
                 </b-card>
 
-                <b-card bg-variant="secondary" text-variant="white" header="CHOOSE AN ALGORITHM" class="text-center">
+                <b-card bg-variant="Light" text-variant="white" header="CHOOSE AN ALGORITHM" class="card">
 <!--                    <b-card-text>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</b-card-text>-->
                     <div class="custom-control custom-switch" v-for="(algorithm, index) in algorithms" :key="index" >
                         <input
@@ -338,5 +338,9 @@
 
       /* Set up positioning */
 
+    }
+
+    .card{
+      background-color: rgba(0, 0, 0, 0.4);
     }
 </style>

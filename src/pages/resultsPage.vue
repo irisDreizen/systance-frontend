@@ -4,7 +4,7 @@
       <h1 class="content_title">RESULTS DASHBOARD</h1>
       <h3 class="content_title2"><b>DATASET: </b>{{datasetName}} <br><b>ALGORITHM: </b>{{algoName}}</h3>
       <div>
-        <b-card-group deck class="card">
+        <b-card-group deck>
 
           <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" class="text-center">
             <b-card-title class="bg-info">PERFORMANCE</b-card-title>
@@ -140,5 +140,6 @@
     margin-left: 10px;
     margin-right: 10px;
   }
+
 
 </style>

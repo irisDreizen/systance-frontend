@@ -2,7 +2,7 @@
 <div class="centered_content">
   <h1 class="content_title">{{datasetName}} DATASET DASHBOARD</h1>
   <div>
-    <b-card-group deck class="card">
+    <b-card-group deck>
       <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" class="text-center">
         <b-card-title class="bg-info">INFORMATION</b-card-title>
         <b-card-text style="font-size: 20px">{{datasetInfo}} <br><br> Number of records: {{numOfRecords}}</b-card-text>
