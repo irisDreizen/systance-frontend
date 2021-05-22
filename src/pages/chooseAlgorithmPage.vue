@@ -1,27 +1,28 @@
 <template>
   <div class="background">
     <div class="centered_content">
+        <br>
+        <br>
         <div class="content_title">
             RUN ALGORITHMS
         </div>
-        <br>
         <span style="font-size: 20px" class="content_span">In this page, the magic happens!</span>
         <br>
         <br>
-        <span style="font-size: 20px" class="content_span">Here, you can choose a dataset which we provide you, or add your own one, and choose several algorithms to run with it.</span>
+        <span style="font-size: 15px" class="content_span">Here, you can choose a dataset which we provide you, or add your own one, and choose several algorithms to run with it.</span>
         <br>
-        <span style="font-size: 20px" class="content_span">If you would like more information about the datasets or the algorithms, you can click the info button.</span>
+        <span style="font-size: 15px" class="content_span">If you would like more information about the datasets or the algorithms, you can click the info button.</span>
         <br>
         <br>
-        <span style="font-size: 20px" class="content_span">Please notice that some of the algorithms may take a long time to run, so we highly recommend that you enter your email at the bottom of the page, and we will send you an email as soon as the algorithms will finish running.</span>
+        <span style="font-size: 15px" class="content_span">Please notice that some of the algorithms may take a long time to run, so we highly recommend that you enter your email at the bottom of the page, and we will send you an email as soon as the algorithms will finish running.</span>
         <br>
         <br>
         <div class="mt-3">
             <b-card-group deck>
-                <b-card bg-variant="Light" text-variant="white" header="CHOOSE A DATASET" class="card">
+                <b-card bg-variant="Light" text-variant="white" header="CHOOSE A DATASET" class="card" style="margin-left: 30px;" header-class="header_class">
                     <div class="form-group">
                         <div v-for="(dataset,index) in datasets" :key="index">
-                            <input name="status"  type="radio" :value="dataset" v-model="chosenDataset" :disabled="chooseOwnFile"/> {{dataset}}
+                            <input name="status"  type="radio" :value="dataset" v-model="chosenDataset" :disabled="chooseOwnFile" style="font-size: 20px"/> {{dataset}}
                             <b-icon icon="exclamation-circle-fill" variant="warning" style="margin-left: 10px" v-b-tooltip="'click for more information and statistics of the data'" v-on:click="moveToDatasetPage(dataset)"></b-icon>
                             <br/>
                         </div>
@@ -42,6 +43,7 @@
                                     :state="Boolean(file)"
                                     placeholder="Choose a file or drop it here..."
                                     drop-placeholder="Drop file here..."
+                                    @input="setUploadFile()"
                             ></b-form-file>
                         <br>
                         <br>
@@ -56,7 +58,7 @@
 
                 </b-card>
 
-                <b-card bg-variant="Light" text-variant="white" header="CHOOSE AN ALGORITHM" class="card">
+                <b-card bg-variant="Light" text-variant="white" header="CHOOSE AN ALGORITHM" class="card"  style="margin-right: 30px" header-class="header_class">
 <!--                    <b-card-text>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</b-card-text>-->
                     <div class="custom-control custom-switch" v-for="(algorithm, index) in algorithms" :key="index" >
                         <input
@@ -85,31 +87,35 @@
         </div>
 
         <br>
-        <span style="margin-top: 50px">Enter train data percent (number between 1 to 100):</span>
+        Enter train data percent (number between 1 to 100): <input style="border-radius: 10px" v-model="trainPercent"/>
+<!--        <b-form-input v-model="trainPercent" id="input-small" size="md" placeholder="Train data percent" class="centered_input"></b-form-input>-->
         <br>
-        <br>
-        <b-form-input v-model="trainPercent" id="input-small" size="md" placeholder="Train data percent" class="centered_input"></b-form-input>
         <br>
         <b-form-checkbox v-model="chooseEmailFile">
             I would like to receive an email when the run has completed
+            <input class="centered_content" style="border-radius: 10px; width: 350px; margin: 0 auto" v-model="clientEmail" placeholder="Enter email" v-show="chooseEmailFile"/>
         </b-form-checkbox>
+<!--        <div class="centered_input">-->
+<!--            <input class="centered_content" style="border-radius: 10px; width: 350px; margin: 0 auto" v-model="clientEmail" placeholder="Enter email" v-show="chooseEmailFile"/>-->
+<!--&lt;!&ndash;            <b-form-input&ndash;&gt;-->
+<!--&lt;!&ndash;                    v-model="clientEmail"&ndash;&gt;-->
+<!--&lt;!&ndash;                    type="email"&ndash;&gt;-->
+<!--&lt;!&ndash;                    placeholder="Enter email"&ndash;&gt;-->
+<!--&lt;!&ndash;                    v-show="chooseEmailFile"&ndash;&gt;-->
+<!--&lt;!&ndash;            ></b-form-input>&ndash;&gt;-->
+<!--        </div>-->
+        <b-button v-show="!loading" pill variant="info" size="md" style="margin-top: 20px" v-on:click="runModels">Run and compare!</b-button>
+        <div v-show=loading>
+            <span class="content_title">Loading...</span></div>
         <br>
-        <div class="centered_input">
-            <b-form-input
-                    v-model="clientEmail"
-                    type="email"
-                    placeholder="Enter email"
-                    v-show="chooseEmailFile"
-            ></b-form-input>
-        </div>
-        <b-button pill variant="info" size="md" style="margin-top: 20px" v-on:click="runModels">Run and compare!</b-button>
         <br>
         <br>
         <b-alert fade dismissible variant="primary" :show="showDismissibleAlert" @dismissed="showDismissibleAlert=false">You have to mark at least on algorithm and one dataset</b-alert>
         <b-alert fade dismissible variant="primary" :show="showDismissibleAlert_email" @dismissed="showDismissibleAlert_email=false">Please enter a valid email</b-alert>
         <b-alert fade dismissible variant="primary" :show="showDismissibleAlert_trainPercent" @dismissed="showDismissibleAlert_trainPercent=false">Train percent must be in range of 1-100</b-alert>
         <b-alert fade dismissible variant="danger" :show="showDismissibleAlert_backendError" @dismissed="showDismissibleAlert_backendErrorl=false" >{{backendErrorText}}</b-alert>
-
+        <b-alert fade dismissible variant="danger" :show="showDismissibleAlert_invalidFile" @dismissed="showDismissibleAlert_invalidFile=false" >File must be a csv file</b-alert>
+        <b-alert fade dismissible variant="danger" :show="showDismissibleAlert_fileType" @dismissed="showDismissibleAlert_fileType=false" >You must choose one file type (topic/headline based)</b-alert>
     </div>
   </div>
 </template>
@@ -143,9 +149,13 @@
                 showDismissibleAlert_email: false,
                 showDismissibleAlert_backendError: false,
                 showDismissibleAlert_trainPercent:false,
+                showDismissibleAlert_invalidFile:false,
+                showDismissibleAlert_fileType: false,
                 modalAlgorithmData:'',
                 modalAlgorithmInfo:'',
                 backendErrorText:'',
+                loading: false,
+                validFile: true
 
             }
 
@@ -193,16 +203,22 @@
                 } else if (this.chooseEmailFile && !this.validateEmail(this.clientEmail)) {
                     this.showDismissibleAlert_email = true
                 } else if (this.chooseOwnFile && this.chosenFileType === '') {
-                    this.showDismissibleAlert = true
+                    this.showDismissibleAlert_fileType = true
+                }
+                else if (this.chooseOwnFile && this.validFile === false) {
+                    this.showDismissibleAlert_invalidFile = true
                 }
                 else if(!this.checkInputNumber(this.trainPercent)){
                     this.showDismissibleAlert_trainPercent = true
                 }
                 else if (!this.chooseOwnFile) {
+                    this.loading = true;
                     response = await this.runModels_ourDataset();
                     id = response.data;
                 } else {
+                    this.loading = true;
                     response = await this.runModels_ownFile();
+                    console.log(response)
                     id = response.data;
                 }
                 if (response.status === 501) {
@@ -290,7 +306,16 @@
                 }
                 return number >= 1 && number <= 100;
 
+            },
+            setUploadFile(){
+                if (this.file.name.split(".").pop() == 'csv' || this.file.name.split(".").pop() == "xlsx"){
+                   this.validFile = true;
+                }
+                else {
+                    this.validFile = false
+                }
             }
+
 
 
         }
@@ -325,7 +350,6 @@
         font-size: 40px;
     }
     .background{
-
       background: url("../assets/network.png");
       background-size: cover;
       background-position: center;
@@ -343,4 +367,9 @@
     .card{
       background-color: rgba(0, 0, 0, 0.4);
     }
+    .header_class{
+        font-family: 'Bradley Hand', cursive;
+        font-size: 25px;
+    }
+
 </style>

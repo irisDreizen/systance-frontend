@@ -2,13 +2,13 @@
   <div id="app">
       <b-navbar toggleable="lg" type="dark" variant="info" class="header">
           <b-navbar-brand>
-            <router-link :to="{ name: 'main' }">Systance</router-link>
+            <router-link class="link" :to="{ name: 'main' }">Systance</router-link>
           </b-navbar-brand>
           <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
           <b-collapse id="nav-collapse" is-nav>
               <b-navbar-nav>
                   <b-nav-item>
-                    <router-link :to="{ name: 'about' }">About</router-link>
+                    <router-link class="link" :to="{ name: 'about' }">About</router-link>
                   </b-nav-item>
               </b-navbar-nav>
 
@@ -66,4 +66,9 @@ footer {
 .header{
     position: fixed
 }
+
+.link {
+    color: white;
+}
+
 </style>
