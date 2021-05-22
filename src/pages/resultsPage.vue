@@ -2,18 +2,18 @@
   <div>
     <div class="page" id="chart">
       <h1 class="content_title">RESULTS DASHBOARD</h1>
-      <h3 class="content_title2"><b>DATASET: </b>{{datasetName}} <br><b>ALGORITHM: </b>{{algoName}}</h3>
+      <h3 class="content_title2"><b>DATASET: </b> <span style="text-transform:uppercase;">{{datasetName}}</span> <br><b>ALGORITHM: </b><span style="text-transform:uppercase;">{{algoName}}</span></h3>
       <div>
         <b-card-group deck>
 
           <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" class="text-center">
             <b-card-title class="bg-info">PERFORMANCE</b-card-title>
-            <b-card-text style="font-size: 20px">{{accuracy}}</b-card-text>
+            <performance-chart :algoName="algoName" :datasetName="datasetName" :train="train" class="col d-flex justify-content-center"></performance-chart>
           </b-card>
-
 
           <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" class="text-center">
             <b-card-title class="bg-info">TRAIN VS TEST</b-card-title>
+            <br>
             <train-test-donut-chart :algoName="algoName" :datasetName="datasetName" :train="train" class="col d-flex justify-content-center"></train-test-donut-chart>
           </b-card>
 
@@ -24,7 +24,7 @@
         <b-card-group deck>
           <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" class="text-center">
             <b-card-title class="bg-info">STATISTICS</b-card-title>
-            <StatisticsTable :algoName="algoName" :datasetName="datasetName" :train="train"></StatisticsTable>
+            <StatisticsTable :algoName="algoName" :datasetName="datasetName" :train="train" ></StatisticsTable>
           </b-card>
 
           <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" class="text-center">
@@ -62,6 +62,7 @@
   import ConfusionMatrix from "../components/ConfusionMatrix";
   import actualVsPredict from "../components/actualVsPredict";
   import trainTestDonutChart from "../components/trainTestDonutChart";
+  import performanceChart from "../components/performanceChart";
 
   export default {
     name: "results",
@@ -70,12 +71,11 @@
       ROCCurve,
       actualVsPredict,
       ConfusionMatrix,
-      trainTestDonutChart
+      trainTestDonutChart,
+      performanceChart
     },
     data: function () {
       return {
-        accuracy: null,
-        rocaucscore: null,
         datasetName: null,
         algoName: null,
         train: null
@@ -91,22 +91,22 @@
           this.algoName = this.$route.params.algoName;
           this.train = this.$route.params.train;
 
-          let formData = new FormData();
-          formData.append('model', this.algoName);
-          formData.append('ds_name', this.datasetName);
-          formData.append('percent', this.train);
-          const response = await this.axios.post(
-              "http://127.0.0.1:5000/resultsModelDataset",formData, {
-                    headers: {
-                      'Content-Type': 'multipart/form-data'
-                    }
-                  },
-          );
-          var response_data = response.data;
-          this.accuracy = response_data['accuracy']
-          this.rocaucscore = response_data['rocaucscore']
-          this.datasetName = this.datasetName.toUpperCase()
-          this.algoName = this.algoName.toUpperCase()
+          // let formData = new FormData();
+          // formData.append('model', this.algoName);
+          // formData.append('ds_name', this.datasetName);
+          // formData.append('percent', this.train);
+          // const response = await this.axios.post(
+          //     "http://127.0.0.1:5000/resultsModelDataset",formData, {
+          //           headers: {
+          //             'Content-Type': 'multipart/form-data'
+          //           }
+          //         },
+          // );
+          // var response_data = response.data;
+          // this.accuracy = response_data['accuracy']
+          // this.rocaucscore = response_data['rocaucscore']
+          // this.datasetName = this.datasetName.toUpperCase()
+          // this.algoName = this.algoName.toUpperCase()
 
           // this.accuracy = 0.7
           // this.rocaucscore = 0.68
