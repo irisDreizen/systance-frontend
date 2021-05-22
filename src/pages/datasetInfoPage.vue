@@ -17,15 +17,6 @@
   <br>
   <div>
     <b-card-group deck>
-      <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" class="text-center">
-        <b-card-title class="bg-info">DATA SAMPLE</b-card-title>
-        <data-sample-table :datasetName="datasetName" ></data-sample-table>
-      </b-card>
-    </b-card-group>
-  </div>
-  <br>
-  <div>
-    <b-card-group deck>
 
 
       <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" class="text-center">
@@ -42,7 +33,17 @@
     </b-card-group>
   </div>
   <br>
+  <div>
+    <b-card-group deck>
+      <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" class="text-center">
+        <b-card-title class="bg-info">DATASET TABLE</b-card-title>
+        <dataset-table :datasetName="datasetName" ></dataset-table>
+<!--        <data-sample-table :datasetName="datasetName" ></data-sample-table>-->
+      </b-card>
+    </b-card-group>
+  </div>
   <br>
+
 </div>
 </template>
 
@@ -50,7 +51,7 @@
 import labelPieChart from "../components/labelPieChart";
 import sentimentDonutChart from "../components/sentimentDonutChart";
 import topicsChart from "../components/topicsChart";
-import dataSampleTable from "../components/dataSampleTable";
+import datasetTable from "../components/datasetTable";
 
 export default {
   name: "datasetInfo",
@@ -58,7 +59,7 @@ export default {
     labelPieChart,
     sentimentDonutChart,
     topicsChart,
-    dataSampleTable
+    datasetTable
   },
   data: function () {
     return {
