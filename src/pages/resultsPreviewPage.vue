@@ -7,6 +7,7 @@
       <h4 style="margin-top: 20px">Choose which algorithm you would like to view the results:</h4>
     </div>
     <br>
+    <br>
     <div class="vertical-center">
       <div v-for="r in results" :key="r.id" >
         <!--      <resultsPreview :algoName="r" :datasetName="datasetName" :train="train"/>-->
@@ -14,6 +15,13 @@
       </div>
     </div>
     <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="vertical-center">
+      <b-button v-on:click="sendToCompareResults(results, datasetName, train)" pill variant="info" size="lg" style="margin-top: 20px">Compare the results</b-button>
+    </div>
     <br>
     <br>
     <br>
@@ -75,6 +83,12 @@ export default {
       this.$router.push({
         name: 'results',
         params: { algoName: algoName, datasetName: datasetName, train: train }
+      });
+    },
+    sendToCompareResults(algoNameArray, datasetName, train){
+      this.$router.push({
+        name: 'compareResults',
+        params: { algoNameArray: algoNameArray, datasetName: datasetName, train: train }
       });
     }
 

@@ -5,7 +5,6 @@
       <h3 class="content_title2"><b>DATASET: </b> <span style="text-transform:uppercase;">{{datasetName}}</span> <br><b>ALGORITHM: </b><span style="text-transform:uppercase;">{{algoName}}</span></h3>
       <div>
         <b-card-group deck>
-
           <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" class="text-center">
             <b-card-title class="bg-info">PERFORMANCE</b-card-title>
             <performance-chart :algoName="algoName" :datasetName="datasetName" :train="train" class="col d-flex justify-content-center"></performance-chart>
@@ -72,7 +71,7 @@
       actualVsPredict,
       ConfusionMatrix,
       trainTestDonutChart,
-      performanceChart
+      performanceChart,
     },
     data: function () {
       return {

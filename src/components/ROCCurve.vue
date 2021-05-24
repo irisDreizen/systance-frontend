@@ -96,7 +96,7 @@ export default {
         console.log(this.series);
 
         this.series.push({
-              name: "CHANCE LINE <br> Area=0.67",
+              name: "CHANCE LINE",
               data: [[0,0],[1,1]],
               area: 0
             })

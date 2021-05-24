@@ -7,11 +7,6 @@ const routes = [
         component: Main,
     },
     {
-        path: "/results",
-        name: "results",
-        component: () => import("./pages/resultsPage"),
-    },
-    {
         path: "/about",
         name: "about",
         component: () => import("./pages/aboutPage"),
@@ -40,6 +35,11 @@ const routes = [
         path: "/results/",
         name: "results",
         component: () => import("./pages/resultsPage"),
+    },
+    {
+        path: "/compareResults/",
+        name: "compareResults",
+        component: () => import("./pages/compareResultsPage"),
     },
     {
         path: "/thanks",
