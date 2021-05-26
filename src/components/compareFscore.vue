@@ -98,13 +98,11 @@ export default {
 
 
           var s = [{
-            name: this.algoNameArray[i],
+            name: this.algoNameArray[i].toUpperCase(),
             data: newData
           }]
-          console.log(s)
-          console.log(s[0])
+
           this.series.push(s[0])
-          console.log(this.series)
 
 
         }

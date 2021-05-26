@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="chart">
-      <apexchart type="bar" height="430" :options="chartOptions" :series="series"></apexchart>
+      <apexchart type="bar" height="600" width="800" :options="chartOptions" :series="series"></apexchart>
     </div>
   </div>
 </template>
@@ -75,7 +75,15 @@ export default {
       try{
         var responseData = ""
         this.series = []
-        console.log(this.algoNameArray)
+        var temp = []
+
+        for(var t = 0; t <= this.algoNameArray.length; t++){
+          temp[t] = {
+               name: "",
+               data: []
+             }
+        }
+
         for(var i = 0; i < this.algoNameArray.length; i++) {
           let formData = new FormData();
           formData.append('model', this.algoNameArray[i]);
@@ -89,32 +97,22 @@ export default {
               },
           );
           responseData = response.data;
-          console.log(responseData)
 
 
           if(i == 0) {
-            this.series = [{
-              name: "",
-              data: []
-            }, {
-              name: "",
-              data: []
-            }, {
-              name: "",
-              data: []
-            }];
+            temp[0].name = 'ACTUAL';
+            temp[0].data = responseData[0]['Actual'];
 
-            this.series[0].name = 'ACTUAL';
-            this.series[0].data = responseData[0]['Actual'];
-
-            for(var j = 0; i < responseData[1]['categories'].length; j++){
+            for(var j = 0; j < responseData[1]['categories'].length; j++){
               this.chartOptions.xaxis.categories.push(responseData[1]['categories'][j]);
             }
           }
 
-
-          this.series[i+1].name = this.algoNameArray[i] + ' PREDICT';
-          this.series[i+1].data = responseData[0]['Predict'];
+          temp[i+1].name = this.algoNameArray[i].toUpperCase();
+          temp[i+1].data = responseData[0]['Predict'];
+        }
+        for(var k = 0; k < temp.length; k++){
+          this.series.push(temp[k])
         }
 
 
@@ -122,11 +120,6 @@ export default {
         console.log(error);
       }
     }
-
-
-
-
-
   }
 }
 </script>

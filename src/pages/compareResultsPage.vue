@@ -7,12 +7,12 @@
           <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" class="text-center">
             <b-card-title class="bg-info">PERFORMANCE</b-card-title>
             <compare-performance :algoNameArray="algoNameArray" :datasetName="datasetName"
-                                 :train="train"></compare-performance>
+                                 :train="train" class="col d-flex justify-content-center" ></compare-performance>
           </b-card>
           <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" class="text-center">
-            <b-card-title class="bg-info">PRECISION</b-card-title>
+            <b-card-title class="bg-info">ACTUAL VS PREDICT</b-card-title>
             <compare-actual-predict :algoNameArray="algoNameArray" :datasetName="datasetName"
-                               :train="train"></compare-actual-predict>
+                               :train="train" class="col d-flex justify-content-center" ></compare-actual-predict>
           </b-card>
 
 <!--          <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" class="text-center">-->

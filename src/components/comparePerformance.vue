@@ -69,7 +69,6 @@ export default {
   methods: {
     async getData() {
       try {
-        console.log(this.algoNameArray)
         this.series = []
         for(var i = 0; i < this.algoNameArray.length; i++) {
 
@@ -90,8 +89,6 @@ export default {
           newData.push(response_data['accuracy'])
           newData.push(response_data['rocaucscore'])
 
-          console.log(newData)
-
 
           const response2 = await this.axios.post(
               "http://127.0.0.1:5000/statisticsTable", formData, {
@@ -106,8 +103,6 @@ export default {
           var totalPrecision = 0;
           var totalRecall = 0;
           var totalFScore = 0;
-
-          console.log(table)
 
 
           for (var k = 1; k < table.length; k++) {
@@ -130,13 +125,11 @@ export default {
           newData.push(parseFloat(recall))
           newData.push(parseFloat(fscore))
           var s = [{
-                  name: this.algoNameArray[i],
+                  name: this.algoNameArray[i].toUpperCase(),
                   data: newData
           }]
-          console.log(s)
-          console.log(s[0])
+
           this.series.push(s[0])
-          console.log(this.series)
         }
 
         // this.series = [{

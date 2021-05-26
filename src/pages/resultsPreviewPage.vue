@@ -57,7 +57,6 @@ export default {
     async update(){
       try{
         const id = this.$route.params.resultId;
-        console.log("I am in results" + id);
         const response = await this.axios.get(
             "http://127.0.0.1:5000/result/" + id
         );
