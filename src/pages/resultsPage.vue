@@ -2,7 +2,7 @@
   <div>
     <div class="page" id="chart">
       <h1 class="content_title">RESULTS DASHBOARD</h1>
-      <h3 class="content_title2"><b>DATASET: </b> <span style="text-transform:uppercase;">{{datasetName}}</span> <br><b>ALGORITHM: </b><span style="text-transform:uppercase;">{{algoName}}</span></h3>
+      <h3 class="content_title2"><b>DATASET: </b> <span style="text-transform:uppercase;">{{datasetName}}</span> <br><b>ALGORITHM: </b><span style="text-transform:uppercase;">{{algoName}}</span>  <br><b>RUN TIME: </b><span>{{time}} minutes</span></h3>
       <div>
         <b-card-group deck>
           <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" class="text-center">
@@ -77,7 +77,8 @@
       return {
         datasetName: null,
         algoName: null,
-        train: null
+        train: null,
+        time: null
       }
     },
     async created() {
@@ -90,25 +91,19 @@
           this.algoName = this.$route.params.algoName;
           this.train = this.$route.params.train;
 
-          // let formData = new FormData();
-          // formData.append('model', this.algoName);
-          // formData.append('ds_name', this.datasetName);
-          // formData.append('percent', this.train);
-          // const response = await this.axios.post(
-          //     "http://127.0.0.1:5000/resultsModelDataset",formData, {
-          //           headers: {
-          //             'Content-Type': 'multipart/form-data'
-          //           }
-          //         },
-          // );
-          // var response_data = response.data;
-          // this.accuracy = response_data['accuracy']
-          // this.rocaucscore = response_data['rocaucscore']
-          // this.datasetName = this.datasetName.toUpperCase()
-          // this.algoName = this.algoName.toUpperCase()
-
-          // this.accuracy = 0.7
-          // this.rocaucscore = 0.68
+          let formData = new FormData();
+          formData.append('model', this.algoName);
+          formData.append('ds_name', this.datasetName);
+          formData.append('percent', this.train);
+          const response = await this.axios.post(
+              "http://127.0.0.1:5000/getTime",formData, {
+                    headers: {
+                      'Content-Type': 'multipart/form-data'
+                    }
+                  },
+          );
+          this.time = parseFloat(response.data);
+          this.time = this.time.toFixed(3);
 
         } catch (error) {
           console.log(error);

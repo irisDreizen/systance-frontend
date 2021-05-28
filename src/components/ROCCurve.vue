@@ -93,7 +93,6 @@ export default {
                 },
         );
         this.series = response.data;
-        console.log(this.series);
 
         this.series.push({
               name: "CHANCE LINE",

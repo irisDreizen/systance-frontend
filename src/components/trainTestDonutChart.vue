@@ -85,7 +85,6 @@ export default {
         for(var i = 0; i < responseData['series'].length; i++){
           this.series.push(responseData['series'][i]);
         }
-        console.log( response.data)
 
         //this.series.push(1073, 460);
 

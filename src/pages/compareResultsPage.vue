@@ -2,12 +2,45 @@
   <div>
     <div class="page" id="chart">
       <h1 class="content_title">COMPARE THE RESULTS</h1>
+      <h3 class="content_title2"><b>DATASET: </b> <span style="text-transform:uppercase;">{{datasetName}}</span> </h3>
       <div>
         <b-card-group deck>
           <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" class="text-center">
             <b-card-title class="bg-info">PERFORMANCE</b-card-title>
             <compare-performance :algoNameArray="algoNameArray" :datasetName="datasetName"
-                                 :train="train"></compare-performance>
+                                 :train="train" class="col d-flex justify-content-center" ></compare-performance>
+          </b-card>
+          <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" class="text-center">
+            <b-card-title class="bg-info">ACTUAL VS PREDICT</b-card-title>
+            <compare-actual-predict :algoNameArray="algoNameArray" :datasetName="datasetName"
+                               :train="train" class="col d-flex justify-content-center" ></compare-actual-predict>
+          </b-card>
+
+        </b-card-group>
+        <br>
+        <b-card-group deck>
+          <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" class="text-center">
+            <b-card-title class="bg-info">PRECISION</b-card-title>
+            <compare-precision :algoNameArray="algoNameArray" :datasetName="datasetName"
+                                 :train="train"></compare-precision>
+          </b-card>
+          <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" class="text-center">
+            <b-card-title class="bg-info">RECALL</b-card-title>
+            <compare-recall :algoNameArray="algoNameArray" :datasetName="datasetName"
+                               :train="train"></compare-recall>
+          </b-card>
+          <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" class="text-center">
+            <b-card-title class="bg-info">F-SCORE</b-card-title>
+            <compare-fscore :algoNameArray="algoNameArray" :datasetName="datasetName"
+                            :train="train"></compare-fscore>
+          </b-card>
+        </b-card-group>
+        <br>
+        <b-card-group deck>
+          <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" class="text-center">
+            <b-card-title class="bg-info">RUN TIME</b-card-title>
+            <compare-time :algoNameArray="algoNameArray" :datasetName="datasetName"
+                            :train="train" class="col d-flex justify-content-center"></compare-time>
           </b-card>
 
           <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" class="text-center">
@@ -18,7 +51,8 @@
 
         </b-card-group>
       </div>
-
+      <br>
+      <br>
     </div>
   </div>
 </template>
@@ -26,12 +60,22 @@
 
 <script>
 import comparePerformance from "../components/comparePerformance";
+import comparePrecision from "../components/comparePrecision";
+import compareRecall from "../components/compareRecall";
+import compareFscore from "../components/compareFscore";
+import compareActualPredict from "../components/compareActualPredict";
+import compareTime from "../components/compareTime";
 import trainTestDonutChart from "../components/trainTestDonutChart";
 
 export default {
   name: "compareResultsPage",
   components: {
     comparePerformance,
+    comparePrecision,
+    compareRecall,
+    compareFscore,
+    compareActualPredict,
+    compareTime,
     trainTestDonutChart
   },
   data: function () {

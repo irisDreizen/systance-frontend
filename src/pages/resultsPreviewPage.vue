@@ -5,37 +5,37 @@
       <h3 style="margin-top: 20px"> <b>Dataset:</b> <span style="text-transform:uppercase;">{{datasetName}}</span></h3>
       <h3 style="margin-top: 20px"><b>Train Percent:</b> {{train}}</h3>
       <h4 style="margin-top: 20px">Choose which algorithm you would like to view the results:</h4>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+
     </div>
-    <br>
-    <br>
     <div class="vertical-center">
       <div v-for="r in results" :key="r.id" >
         <!--      <resultsPreview :algoName="r" :datasetName="datasetName" :train="train"/>-->
         <b-button v-on:click="sendToResults(r, datasetName, train)" pill variant="info" size="lg" style="margin-top: 20px">{{r}}</b-button>
       </div>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
     </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
     <div class="vertical-center">
       <b-button v-on:click="sendToCompareResults(results, datasetName, train)" pill variant="info" size="lg" style="margin-top: 20px">Compare the results</b-button>
     </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
   </div>
 </template>
 
@@ -57,7 +57,6 @@ export default {
     async update(){
       try{
         const id = this.$route.params.resultId;
-        console.log("I am in results" + id);
         const response = await this.axios.get(
             "http://127.0.0.1:5000/result/" + id
         );

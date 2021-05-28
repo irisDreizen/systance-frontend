@@ -1,6 +1,6 @@
 <template>
   <div id="chart">
-    <apexchart type="bar" height="600" width="600" :options="chartOptions" :series="series"></apexchart>
+    <apexchart type="bar" height="600" width="380" :options="chartOptions" :series="series"></apexchart>
   </div>
 </template>
 
@@ -8,7 +8,7 @@
 import VueApexCharts from "vue-apexcharts";
 
 export default {
-  name: "comparePerformance",
+  name: "compareFscore",
   components: {
     apexchart: VueApexCharts,
   },
@@ -60,11 +60,7 @@ export default {
           intersect: false
         },
         xaxis: {
-          categories: [ "Accuracy",
-            "Roc-Auc Score",
-            "Precision",
-            "Recall",
-            "F-score"]
+          categories: []
         },
       },
     }
@@ -75,6 +71,7 @@ export default {
   methods: {
     async getData() {
       try {
+        console.log(this.algoNameArray)
         this.series = []
         for(var i = 0; i < this.algoNameArray.length; i++) {
 
@@ -82,19 +79,6 @@ export default {
           formData.append('model', this.algoNameArray[i]);
           formData.append('ds_name', this.datasetName);
           formData.append('percent', this.train);
-
-          const response = await this.axios.post(
-              "http://127.0.0.1:5000/resultsModelDataset", formData, {
-                headers: {
-                  'Content-Type': 'multipart/form-data'
-                }
-              },
-          );
-          var response_data = response.data;
-          var newData = []
-          newData.push(response_data['accuracy'])
-          newData.push(response_data['rocaucscore'])
-
 
           const response2 = await this.axios.post(
               "http://127.0.0.1:5000/statisticsTable", formData, {
@@ -106,49 +90,28 @@ export default {
 
           var table = response2.data['data'];
 
-          var totalPrecision = 0;
-          var totalRecall = 0;
-          var totalFScore = 0;
-
+          var newData = []
+          var temp = 0
 
           for (var k = 1; k < table.length; k++) {
-            totalPrecision += parseFloat(table[k][1]);
-            totalRecall += parseFloat(table[k][2]);
-            totalFScore += parseFloat(table[k][3]);
+            temp = parseFloat(table[k][3])
+            newData.push(temp.toFixed(2))
           }
 
-          var numOfLabels = parseFloat(table.length - 1)
 
-          totalPrecision = totalPrecision / numOfLabels;
-          totalRecall = totalRecall / numOfLabels;
-          totalFScore = totalFScore / numOfLabels;
-
-          var prec = totalPrecision.toFixed(2);
-          var recall = totalRecall.toFixed(2);
-          var fscore = totalFScore.toFixed(2);
-
-          newData.push(parseFloat(prec))
-          newData.push(parseFloat(recall))
-          newData.push(parseFloat(fscore))
           var s = [{
-                  name: this.algoNameArray[i].toUpperCase(),
-                  data: newData
+            name: this.algoNameArray[i].toUpperCase(),
+            data: newData
           }]
 
           this.series.push(s[0])
+
+
+        }
+        for (var j = 1; j < table.length; j++) {
+          this.chartOptions.xaxis.categories.push(table[j][0].toUpperCase())
         }
 
-        // this.series = [{
-        //   data: newData
-        // }]
-
-        // {
-        //   name: 'UCLMR',
-        //       data: [0.6, 0.58, 0.4, 0.41, 0.42]
-        // }, {
-        //   name: 'TAN',
-        //       data: [0.52, 0.53, 0.4, 0.41, 0.42]
-        // }
 
 
       } catch (error) {
