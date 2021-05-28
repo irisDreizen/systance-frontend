@@ -2,39 +2,20 @@
   <div class="background">
     <div class="centered_content">
       <h1 style="margin-top: 20px" class="content_title">RESULTS</h1>
-      <h3 style="margin-top: 20px"> <b>Dataset:</b> <span style="text-transform:uppercase;">{{datasetName}}</span></h3>
-      <h3 style="margin-top: 20px"><b>Train Percent:</b> {{train}}</h3>
+      <h3 style="margin-top: 20px"><b>Dataset:</b> <span style="text-transform:uppercase;">{{ datasetName }}</span></h3>
+      <h3 style="margin-top: 20px"><b>Train Percent:</b> {{ train }}</h3>
       <h4 style="margin-top: 20px">Choose which algorithm you would like to view the results:</h4>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-
-    </div>
-    <div class="vertical-center">
-      <div v-for="r in results" :key="r.id" >
+      <div v-for="r in results" :key="r.id">
         <!--      <resultsPreview :algoName="r" :datasetName="datasetName" :train="train"/>-->
-        <b-button v-on:click="sendToResults(r, datasetName, train)" pill variant="info" size="lg" style="margin-top: 20px">{{r}}</b-button>
+        <b-button v-on:click="sendToResults(r, datasetName, train)" pill variant="secondary" size="lg"
+                  style="margin-top: 20px">{{ r }}
+        </b-button>
       </div>
+      <b-button v-on:click="sendToCompareResults(results, datasetName, train)" pill variant="info" size="lg"
+                style="margin-top: 20px">Compare the results
+      </b-button>
       <br>
       <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-      <br>
-    </div>
-    <div class="vertical-center">
-      <b-button v-on:click="sendToCompareResults(results, datasetName, train)" pill variant="info" size="lg" style="margin-top: 20px">Compare the results</b-button>
     </div>
   </div>
 </template>
@@ -43,19 +24,19 @@
 
 export default {
   name: "resultsPreviewPage",
-  data: function() {
+  data: function () {
     return {
       datasetName: null,
       train: null,
-      results:[],
+      results: [],
     }
   },
-  mounted(){
+  mounted() {
     this.update();
   },
   methods: {
-    async update(){
-      try{
+    async update() {
+      try {
         const id = this.$route.params.resultId;
         const response = await this.axios.get(
             "http://127.0.0.1:5000/result/" + id
@@ -64,7 +45,7 @@ export default {
         this.datasetName = response_data[1]
         this.train = response_data[2]
 
-        for(var i = 0; i < response_data[0].length; i++){
+        for (var i = 0; i < response_data[0].length; i++) {
           this.results.push(response_data[0][i]);
         }
 
@@ -78,16 +59,16 @@ export default {
         console.log(error);
       }
     },
-    sendToResults(algoName, datasetName, train){
+    sendToResults(algoName, datasetName, train) {
       this.$router.push({
         name: 'results',
-        params: { algoName: algoName, datasetName: datasetName, train: train }
+        params: {algoName: algoName, datasetName: datasetName, train: train}
       });
     },
-    sendToCompareResults(algoNameArray, datasetName, train){
+    sendToCompareResults(algoNameArray, datasetName, train) {
       this.$router.push({
         name: 'compareResults',
-        params: { algoNameArray: algoNameArray, datasetName: datasetName, train: train }
+        params: {algoNameArray: algoNameArray, datasetName: datasetName, train: train}
       });
     }
 
@@ -101,11 +82,13 @@ export default {
   font-weight: bold;
   font-size: 55px;
 }
-.centered_content{
+
+.centered_content {
   margin: 20px;
   text-align: center;
   font-family: 'Bradley Hand', cursive;
 }
+
 .vertical-center {
   position: absolute;
   -ms-transform: translateY(-50%);
@@ -113,12 +96,12 @@ export default {
   text-align: center;
   width: 100%;
 }
-.background{
 
+.background {
   background: url("../assets/image.png");
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
+  /*background-repeat: no-repeat;*/
   min-height: 100%;
   min-width: 1024px;
 
@@ -127,7 +110,7 @@ export default {
   height: auto;
 
   /* Set up positioning */
-  position: fixed;
+  position: absolute;
 
 }
 
