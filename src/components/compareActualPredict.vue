@@ -30,41 +30,39 @@ export default {
   },
   data: function () {
     return {
-      series: [],
+      series: null,
       chartOptions: {
         chart: {
           type: 'bar',
-          height: 430
+          height: 350,
+          stacked: true,
         },
         plotOptions: {
           bar: {
             horizontal: true,
-            dataLabels: {
-              position: 'top',
-            },
-          }
-        },
-        dataLabels: {
-          enabled: true,
-          offsetX: -6,
-          style: {
-            fontSize: '12px',
-            colors: ['#fff']
-          }
+          },
         },
         stroke: {
-          show: true,
           width: 1,
           colors: ['#fff']
         },
-        tooltip: {
-          shared: true,
-          intersect: false
-        },
         xaxis: {
-          categories: []
+          categories: [],
+        }
+      },
+      yaxis: {
+        title: {
+          text: undefined
         },
       },
+      fill: {
+        opacity: 1
+      },
+      legend: {
+        position: 'top',
+        horizontalAlign: 'left',
+        offsetX: 40
+      }
     }
   },
   mounted(){
@@ -77,12 +75,6 @@ export default {
         this.series = []
         var temp = []
 
-        for(var t = 0; t <= this.algoNameArray.length; t++){
-          temp[t] = {
-               name: "",
-               data: []
-             }
-        }
 
         for(var i = 0; i < this.algoNameArray.length; i++) {
           let formData = new FormData();
@@ -97,20 +89,39 @@ export default {
               },
           );
           responseData = response.data;
+          console.log(responseData)
 
 
           if(i == 0) {
-            temp[0].name = 'ACTUAL';
-            temp[0].data = responseData[0]['Actual'];
+            // temp[0].name = 'ACTUAL';
+            this.chartOptions.xaxis.categories.push('ACTUAL');
+            // temp[0].data = responseData[0]['Actual'];
+            for(var t = 0; t < responseData[1]['categories'].length; t++){
+              temp[t] = {
+                name: "",
+                data: []
+              }
+            }
+
+            for(var p = 0; p < responseData[0]['Actual'].length; p++){
+              temp[p].data.push(responseData[0]['Actual'][p])
+            }
 
             for(var j = 0; j < responseData[1]['categories'].length; j++){
-              this.chartOptions.xaxis.categories.push(responseData[1]['categories'][j]);
+              temp[j].name = responseData[1]['categories'][j];
+              // this.chartOptions.xaxis.categories.push(responseData[1]['categories'][j]);
             }
           }
 
-          temp[i+1].name = this.algoNameArray[i].toUpperCase();
-          temp[i+1].data = responseData[0]['Predict'];
+          // temp[i+1].name = this.algoNameArray[i].toUpperCase();
+          this.chartOptions.xaxis.categories.push(this.algoNameArray[i].toUpperCase());
+
+          for(var s = 0; s < responseData[0]['Predict'].length; s++){
+            temp[s].data.push(responseData[0]['Predict'][s])
+          }
+          // temp[i+1].data = responseData[0]['Predict'];
         }
+        console.log(temp)
         for(var k = 0; k < temp.length; k++){
           this.series.push(temp[k])
         }

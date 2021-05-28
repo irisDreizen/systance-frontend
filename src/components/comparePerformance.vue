@@ -28,39 +28,45 @@ export default {
   },
   data: function () {
     return {
-      series: null,
+      series: [],
       chartOptions: {
         chart: {
           type: 'bar',
-          height: 350,
-          stacked: true,
+          height: 430
         },
         plotOptions: {
           bar: {
             horizontal: true,
-          },
+            dataLabels: {
+              position: 'top',
+            },
+          }
+        },
+        dataLabels: {
+          enabled: true,
+          offsetX: -6,
+          style: {
+            fontSize: '12px',
+            colors: ['#fff']
+          }
         },
         stroke: {
+          show: true,
           width: 1,
           colors: ['#fff']
         },
+        tooltip: {
+          shared: true,
+          intersect: false
+        },
         xaxis: {
-          categories: ["Accuracy", "Roc-Auc Score", "Precision", "Recall", "F-score"],
-        }
-      },
-      yaxis: {
-        title: {
-          text: undefined
+          categories: [ "Accuracy",
+            "Roc-Auc Score",
+            "Precision",
+            "Recall",
+            "F-score"]
         },
       },
-      fill: {
-        opacity: 1
-      },
-      legend: {
-        position: 'top',
-        horizontalAlign: 'left',
-        offsetX: 40
-      }
     }
   },
   mounted() {

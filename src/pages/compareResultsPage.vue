@@ -2,6 +2,7 @@
   <div>
     <div class="page" id="chart">
       <h1 class="content_title">COMPARE THE RESULTS</h1>
+      <h3 class="content_title2"><b>DATASET: </b> <span style="text-transform:uppercase;">{{datasetName}}</span> </h3>
       <div>
         <b-card-group deck>
           <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" class="text-center">
@@ -14,12 +15,6 @@
             <compare-actual-predict :algoNameArray="algoNameArray" :datasetName="datasetName"
                                :train="train" class="col d-flex justify-content-center" ></compare-actual-predict>
           </b-card>
-
-<!--          <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" class="text-center">-->
-<!--            <b-card-title class="bg-info">TRAIN VS TEST</b-card-title>-->
-<!--            <br>-->
-<!--            <train-test-donut-chart :algoName="this.algoNameArray[0]" :datasetName="datasetName" :train="train" class="col d-flex justify-content-center"></train-test-donut-chart>-->
-<!--          </b-card>-->
 
         </b-card-group>
         <br>
@@ -40,6 +35,21 @@
                             :train="train"></compare-fscore>
           </b-card>
         </b-card-group>
+        <br>
+        <b-card-group deck>
+          <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" class="text-center">
+            <b-card-title class="bg-info">RUN TIME</b-card-title>
+            <compare-time :algoNameArray="algoNameArray" :datasetName="datasetName"
+                            :train="train" class="col d-flex justify-content-center"></compare-time>
+          </b-card>
+
+          <b-card border-variant="info" header-bg-variant="info" bg-variant="Light" text-variant="black" class="text-center">
+            <b-card-title class="bg-info">TRAIN VS TEST</b-card-title>
+            <br>
+            <train-test-donut-chart :algoName="this.algoNameArray[0]" :datasetName="datasetName" :train="train" class="col d-flex justify-content-center"></train-test-donut-chart>
+          </b-card>
+
+        </b-card-group>
       </div>
       <br>
       <br>
@@ -54,6 +64,8 @@ import comparePrecision from "../components/comparePrecision";
 import compareRecall from "../components/compareRecall";
 import compareFscore from "../components/compareFscore";
 import compareActualPredict from "../components/compareActualPredict";
+import compareTime from "../components/compareTime";
+import trainTestDonutChart from "../components/trainTestDonutChart";
 
 export default {
   name: "compareResultsPage",
@@ -62,7 +74,9 @@ export default {
     comparePrecision,
     compareRecall,
     compareFscore,
-    compareActualPredict
+    compareActualPredict,
+    compareTime,
+    trainTestDonutChart
   },
   data: function () {
     return {
