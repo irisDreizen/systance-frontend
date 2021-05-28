@@ -31,13 +31,13 @@
 <!--        <b-dropdown class="m-md-2" :text="chosenTopic">-->
 <!--            <b-dropdown-item v-for="option in options" :key="option" v-on:click="this.chosenTopic=option">{{option}} </b-dropdown-item>-->
 <!--        </b-dropdown>-->
-        <span class="content_span_smaall_margin">Choose s topic:</span>
+        <span class="content_span_smaall_margin">Choose a topic:</span>
         <select v-model="chosenTopic" style="border-radius: 10px">
             <option disabled hidden>Choose a topic</option>
             <option v-for="option in options" :key="option">{{option}}</option>
         </select>
         <br>
-        <input style="border-radius: 10px; width: 800px; height: 30px; margin: 20px auto; text-align: center" v-model="sentence" placeholder="Enter your stance"/>
+        <input style="border-radius: 10px; width: 600px; height: 30px; margin: 20px auto; text-align: center" v-model="sentence" placeholder="Enter your sentence"/>
 
 <!--        <div class="centered_element">-->
 <!--            <b-form-input style="text-align: center" v-model="text" placeholder="Enter your stance"></b-form-input>-->
@@ -110,7 +110,7 @@
                 else {
                     this.loading = true;
                     const response = await this.axios.get(
-                        "http://127.0.0.1:5000/get_stance/"+this.sentence+"/"+this.chosenTopic
+                        "http://127.0.0.1:5000/get_stance/"+this.sentence+"/"+this.chosenTopic+"/"+this.algorithmName
                     );
                     this.stance = response.data;
                     this.loading = false;

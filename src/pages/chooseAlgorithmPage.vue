@@ -308,7 +308,7 @@
 
             },
             setUploadFile(){
-                if (this.file.name.split(".").pop() == 'csv' || this.file.name.split(".").pop() == "xlsx"){
+                if (this.file.name.split(".").pop() == 'csv'){
                    this.validFile = true;
                 }
                 else {
