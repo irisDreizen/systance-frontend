@@ -192,47 +192,53 @@
             async runModels() {
                 let response = null;
                 let id = null;
-                if (!this.chooseOwnFile && this.chosenDataset === '') {
-                    this.showDismissibleAlert = true
-                } else if (!this.chosenAlgorithms.includes(1)) {
-                    this.showDismissibleAlert = true;
-                } else if (this.chooseOwnFile && this.file === null) {
-                    this.showDismissibleAlert = true
-                } else if (this.chooseEmailFile && this.clientEmail === '') {
-                    this.showDismissibleAlert = true
-                } else if (this.chooseEmailFile && !this.validateEmail(this.clientEmail)) {
-                    this.showDismissibleAlert_email = true
-                } else if (this.chooseOwnFile && this.chosenFileType === '') {
-                    this.showDismissibleAlert_fileType = true
-                }
-                else if (this.chooseOwnFile && this.validFile === false) {
-                    this.showDismissibleAlert_invalidFile = true
-                }
-                else if(!this.checkInputNumber(this.trainPercent)){
-                    this.showDismissibleAlert_trainPercent = true
-                }
-                else if (!this.chooseOwnFile) {
-                    this.loading = true;
-                    response = await this.runModels_ourDataset();
-                    id = response.data;
-                } else {
-                    this.loading = true;
-                    response = await this.runModels_ownFile();
-                    console.log(response)
-                    id = response.data;
-                }
-                if (response.status === 501) {
-                    this.showDismissibleAlert_backendError = true
-                } else if (this.showDismissibleAlert === false && this.showDismissibleAlert_email === false) {
-                    if (this.chooseEmailFile) {
-                        this.$router.push({name: 'thanks'});
+                try{
+                    if (!this.chooseOwnFile && this.chosenDataset === '') {
+                        this.showDismissibleAlert = true
+                    } else if (!this.chosenAlgorithms.includes(1)) {
+                        this.showDismissibleAlert = true;
+                    } else if (this.chooseOwnFile && this.file === null) {
+                        this.showDismissibleAlert = true
+                    } else if (this.chooseEmailFile && this.clientEmail === '') {
+                        this.showDismissibleAlert = true
+                    } else if (this.chooseEmailFile && !this.validateEmail(this.clientEmail)) {
+                        this.showDismissibleAlert_email = true
+                    } else if (this.chooseOwnFile && this.chosenFileType === '') {
+                        this.showDismissibleAlert_fileType = true
+                    }
+                    else if (this.chooseOwnFile && this.validFile === false) {
+                        this.showDismissibleAlert_invalidFile = true
+                    }
+                    else if(!this.checkInputNumber(this.trainPercent)){
+                        this.showDismissibleAlert_trainPercent = true
+                    }
+                    else if (!this.chooseOwnFile) {
+                        this.loading = true;
+                        response = await this.runModels_ourDataset();
+                        id = response.data;
                     } else {
-                        this.$router.push({
-                            name: 'resultsPreview',
-                            params: {resultId: id}
-                        });
+                        this.loading = true;
+                        response = await this.runModels_ownFile();
+                        id = response.data;
+                    }
+                    if (this.showDismissibleAlert === false && this.showDismissibleAlert_email === false) {
+                        console.log("response", response);
+                        if (this.chooseEmailFile) {
+                            this.$router.push({name: 'thanks'});
+                        } else {
+                            this.$router.push({
+                                name: 'resultsPreview',
+                                params: {resultId: id}
+                            });
+                        }
                     }
                 }
+                catch (e) {
+                    this.loading = false;
+                     this.backendErrorText = e.response.data;
+                    this.showDismissibleAlert_backendError = true;
+                }
+
 
             },
             async runModels_ownFile(){
