@@ -110,7 +110,7 @@
         <br>
         <br>
         <br>
-        <b-alert fade dismissible variant="primary" :show="showDismissibleAlert" @dismissed="showDismissibleAlert=false">You have to mark at least on algorithm and one dataset</b-alert>
+        <b-alert fade dismissible variant="primary" :show="showDismissibleAlert" @dismissed="showDismissibleAlert=false">You have to mark at least one algorithm and one dataset</b-alert>
         <b-alert fade dismissible variant="primary" :show="showDismissibleAlert_email" @dismissed="showDismissibleAlert_email=false">Please enter a valid email</b-alert>
         <b-alert fade dismissible variant="primary" :show="showDismissibleAlert_trainPercent" @dismissed="showDismissibleAlert_trainPercent=false">Train percent must be in range of 1-100</b-alert>
         <b-alert fade dismissible variant="danger" :show="showDismissibleAlert_backendError" @dismissed="showDismissibleAlert_backendErrorl=false" >{{backendErrorText}}</b-alert>
